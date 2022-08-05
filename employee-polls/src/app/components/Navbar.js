@@ -3,26 +3,41 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { LinkContainer } from 'react-router-bootstrap';
 
 function NavBar() {
   return (
     <Navbar bg="light" variant="light" expand="md" fixed="top" sticky="top">
       <Container>
-        <Navbar.Brand href="#">Employee Polls</Navbar.Brand>
+        <LinkContainer to="/dashboard">
+          <Navbar.Brand>Employee Polls</Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#leaderboard">Leaderboard</Nav.Link>
+            <LinkContainer to="/leaderboard">
+              <Nav.Link>Leaderboard</Nav.Link>
+            </LinkContainer>
             <NavDropdown title="Polls">
-              <NavDropdown.Item href="#add-poll">Add Poll</NavDropdown.Item>
-              <NavDropdown.Item href="#my-polls">My Polls</NavDropdown.Item>
+              <LinkContainer to="/add-poll">
+                <NavDropdown.Item>Add Poll</NavDropdown.Item>
+              </LinkContainer>
+              <LinkContainer to="/my-polls">
+                <NavDropdown.Item>My Polls</NavDropdown.Item>
+              </LinkContainer>
             </NavDropdown>
           </Nav>
           <NavDropdown title="Account" className="justify-content-end">
-            <NavDropdown.Item href="#settings">Settings</NavDropdown.Item>
-            <NavDropdown.Item href="#profile">My Profile</NavDropdown.Item>
+            <LinkContainer to="/settings">
+              <NavDropdown.Item>Settings</NavDropdown.Item>
+            </LinkContainer>
+            <LinkContainer to="/profile">
+              <NavDropdown.Item>My Profile</NavDropdown.Item>
+            </LinkContainer>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
+            <LinkContainer to="/">
+              <NavDropdown.Item>Logout</NavDropdown.Item>
+            </LinkContainer>
           </NavDropdown>
           <Nav className="justify-content-end" />
         </Navbar.Collapse>

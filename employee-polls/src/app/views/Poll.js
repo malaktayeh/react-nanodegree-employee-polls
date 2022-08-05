@@ -1,7 +1,13 @@
 import React from 'react';
+import NavBar from '../components/Navbar';
 
 function Leaderboard() {
-  return <div>Leaderboard page</div>;
+  return (
+    <>
+      <NavBar />
+      <div>Leaderboard page</div>
+    </>
+  );
 }
 
 export default Leaderboard;
