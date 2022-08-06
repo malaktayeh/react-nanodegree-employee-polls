@@ -4,11 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './app/reducers';
+import middleware from './app/middleware';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const store = createStore(reducer);
+const store = createStore(reducer, middleware);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
