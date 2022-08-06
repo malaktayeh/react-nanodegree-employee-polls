@@ -1,4 +1,4 @@
-import { GET_QUESTIONS } from '../app/actions/questions';
+import { GET_QUESTIONS } from '../actions/questions';
 
 export default function questions(state = {}, action) {
   switch (action.type) {
