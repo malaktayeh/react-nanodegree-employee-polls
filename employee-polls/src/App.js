@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import handleInitialData from './app/actions/shared';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './app/views/Login';
@@ -10,10 +11,9 @@ import Poll from './app/views/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
 
-function App(props) {
+function App({ dispatch }) {
   useEffect(() => {
-    // eslint-disable-next-line react/destructuring-assignment, react/prop-types
-    props.dispatch(handleInitialData());
+    dispatch(handleInitialData());
   }, []);
 
   return (
@@ -29,5 +29,9 @@ function App(props) {
     </div>
   );
 }
+
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired
+};
 
 export default connect()(App);
