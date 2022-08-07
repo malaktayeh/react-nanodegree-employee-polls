@@ -58,6 +58,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<div>404!</div>} />
       </Routes>
     </div>
   );
