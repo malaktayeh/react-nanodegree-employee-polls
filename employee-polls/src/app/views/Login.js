@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import PropType from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -11,13 +13,16 @@ import { setAuthedUser, authedUserSelector } from '../features/authedUserSlice';
 import { fetchUsers, usersSelector } from '../features/usersSlice';
 import Sidebar from '../components/Sidebar';
 
-function Login() {
+function Login({ user = {} }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const { users } = useSelector(usersSelector);
   const { loading } = useSelector(authedUserSelector);
+
+  if (user === {}) navigate('/');
 
   // GET APP USER DATA AFTER FORM SUBMISSION
   useEffect(() => {
@@ -29,6 +34,7 @@ function Login() {
     if (users.hasOwnProperty(username)) {
       if (users[username].password === password) {
         dispatch(setAuthedUser(users[username]));
+        navigate('/');
       }
       // eslint-disable-next-line no-console
       else console.log('incorrect user password!');
@@ -102,5 +108,10 @@ function Login() {
     </Container>
   );
 }
+
+Login.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  user: PropType.object.isRequired
+};
 
 export default Login;

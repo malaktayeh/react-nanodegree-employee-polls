@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './app/views/Login';
@@ -8,17 +8,19 @@ import MyPolls from './app/views/MyPolls';
 import Poll from './app/views/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
+import { authedUserSelector } from './app/features/authedUserSlice';
 
 function App() {
+  const { authedUser } = useSelector(authedUserSelector);
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login user={authedUser} />} />
         <Route path="/add-poll" element={<AddPoll />} />
         <Route path="/my-polls" element={<MyPolls />} />
         <Route path="/poll" element={<Poll />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Dashboard />} />
       </Routes>
     </div>
   );

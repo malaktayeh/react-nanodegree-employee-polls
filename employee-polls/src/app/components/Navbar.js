@@ -3,9 +3,17 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useDispatch } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
+import { removeAuthedUser } from '../features/authedUserSlice';
 
 function NavBar() {
+  const dispatch = useDispatch();
+
+  const signOut = () => {
+    dispatch(removeAuthedUser());
+  };
+
   return (
     <Navbar bg="light" variant="light" expand="md" fixed="top" sticky="top">
       <Container>
@@ -35,7 +43,7 @@ function NavBar() {
               <NavDropdown.Item>My Profile</NavDropdown.Item>
             </LinkContainer>
             <NavDropdown.Divider />
-            <LinkContainer to="/">
+            <LinkContainer to="/login" onClick={signOut}>
               <NavDropdown.Item>Logout</NavDropdown.Item>
             </LinkContainer>
           </NavDropdown>

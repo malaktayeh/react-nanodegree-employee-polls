@@ -28,13 +28,23 @@ const authedUserSlice = createSlice({
       state.authedUser = payload;
       state.loading = false;
       state.hasErrors = false;
+    },
+    removeAuthedUser: (state) => {
+      state.authedUser = {};
+      state.loading = false;
+      state.hasErrors = false;
     }
   }
 });
 
 // ACTIONS
-export const { getAuthedUser, getAuthedUserSuccess, getAuthedUserFailure, setAuthedUser } =
-  authedUserSlice.actions;
+export const {
+  getAuthedUser,
+  getAuthedUserSuccess,
+  getAuthedUserFailure,
+  setAuthedUser,
+  removeAuthedUser
+} = authedUserSlice.actions;
 
 // SELECTORS
 export const authedUserSelector = (state) => state.authedUser;
