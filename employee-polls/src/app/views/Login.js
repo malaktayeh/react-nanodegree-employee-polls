@@ -22,7 +22,10 @@ function Login({ user = {} }) {
   const { users } = useSelector(usersSelector);
   const { loading } = useSelector(authedUserSelector);
 
-  if (user === {}) navigate('/');
+  // REDIRECT TO DASHBOARD IF USER IS SIGNED IN
+  useEffect(() => {
+    if (Object.keys(user).length > 0) navigate('/');
+  }, []);
 
   // GET APP USER DATA AFTER FORM SUBMISSION
   useEffect(() => {
