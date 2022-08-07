@@ -1,11 +1,19 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
+import { fetchQuestions, questionsSelector } from '../features/questionsSlice';
 import NavBar from '../components/Navbar';
 import PollsGrid from '../components/PollsGrid';
 
 function Dashboard() {
+  const dispatch = useDispatch();
+  // eslint-disable-next-line no-unused-vars
+  const { questions, loading, error } = useSelector(questionsSelector);
+
+  useEffect(() => {
+    dispatch(fetchQuestions());
+  }, [dispatch]);
+
   return (
     <>
       <NavBar />
@@ -21,18 +29,5 @@ function Dashboard() {
     </>
   );
 }
-
-// Dashboard.propTypes = {
-//   // eslint-disable-next-line react/forbid-prop-types, react/require-default-props
-//   questions: PropTypes.object
-// };
-
-// const mapStateToProps = ({ questions }) => ({
-//   questionsIds: Object.keys(questions).sort(
-//     (a, b) => questions[b].timestamp - questions[a].timestamp
-//   )
-// });
-
-// export default connect(mapStateToProps)(Dashboard);
 
 export default Dashboard;

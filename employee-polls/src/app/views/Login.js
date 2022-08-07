@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { getAuthedUser } from '../features/authedUserSlice';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -9,6 +11,11 @@ import Sidebar from '../components/Sidebar';
 
 function Login() {
   const [validated, setValidated] = useState(false);
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch.
+  // }, [validated]);
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;

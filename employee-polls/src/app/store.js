@@ -7,7 +7,7 @@ import questionsReducer from './features/questionsSlice';
 const reducer = combineReducers({
   users: usersReducer,
   authedUser: authedUserReducer,
-  polls: questionsReducer
+  questions: questionsReducer
 });
 
 const store = configureStore({
