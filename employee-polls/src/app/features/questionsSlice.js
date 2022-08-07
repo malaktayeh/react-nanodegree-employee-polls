@@ -5,7 +5,7 @@ import { _getQuestions } from '../../_DATA';
 export const initialState = {
   loading: false,
   hasErrors: false,
-  questions: []
+  questions: {}
 };
 
 const questionsSlice = createSlice({
@@ -16,8 +16,6 @@ const questionsSlice = createSlice({
       state.loading = true;
     },
     getQuestionsSuccess: (state, { payload }) => {
-      // eslint-disable-next-line no-console
-      console.log(payload);
       state.questions = payload;
       state.loading = false;
       state.hasErrors = false;

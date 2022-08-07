@@ -7,7 +7,6 @@ import PollsGrid from '../components/PollsGrid';
 
 function Dashboard() {
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-unused-vars
   const { questions, loading, error } = useSelector(questionsSelector);
 
   useEffect(() => {
@@ -17,14 +16,14 @@ function Dashboard() {
   return (
     <>
       <NavBar />
-      <Container fluid style={{ marginTop: '5%', marginBottom: '5%' }}>
-        <h2>Newly posted polls</h2>
-        <PollsGrid />
+      <Container fluid className="mt-5 mb-2">
+        <h2 className="mb-3">Newly posted polls</h2>
+        {loading || error ? <div>loading</div> : <PollsGrid questions={questions} />}
       </Container>
 
-      <Container fluid style={{ marginTop: '5%', marginBottom: '5%' }}>
-        <h2>Completed polls</h2>
-        <PollsGrid />
+      <Container fluid className="mt-5 mb-2">
+        <h2 className="mb-3">Completed polls</h2>
+        {loading || error ? <div>loading</div> : <PollsGrid questions={questions} />}
       </Container>
     </>
   );
