@@ -1,14 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
 import NavBar from '../components/Navbar';
 import PollsGrid from '../components/PollsGrid';
 
-function Dashboard({ questions = {} }) {
-  // eslint-disable-next-line no-console
-  console.log(questions);
-
+function Dashboard() {
   return (
     <>
       <NavBar />
@@ -25,15 +22,17 @@ function Dashboard({ questions = {} }) {
   );
 }
 
-Dashboard.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types, react/require-default-props
-  questions: PropTypes.object
-};
+// Dashboard.propTypes = {
+//   // eslint-disable-next-line react/forbid-prop-types, react/require-default-props
+//   questions: PropTypes.object
+// };
 
-const mapStateToProps = ({ questions }) => ({
-  questionsIds: Object.keys(questions).sort(
-    (a, b) => questions[b].timestamp - questions[a].timestamp
-  )
-});
+// const mapStateToProps = ({ questions }) => ({
+//   questionsIds: Object.keys(questions).sort(
+//     (a, b) => questions[b].timestamp - questions[a].timestamp
+//   )
+// });
 
-export default connect(mapStateToProps)(Dashboard);
+// export default connect(mapStateToProps)(Dashboard);
+
+export default Dashboard;

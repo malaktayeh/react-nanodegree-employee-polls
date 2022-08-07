@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import handleInitialData from './app/actions/shared';
+// import PropTypes from 'prop-types';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './app/views/Login';
 import AddPoll from './app/views/AddPoll';
@@ -11,10 +10,10 @@ import Poll from './app/views/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
 
-function App({ dispatch }) {
-  useEffect(() => {
-    dispatch(handleInitialData());
-  }, []);
+function App() {
+  // useEffect(() => {
+  //   dispatch(handleInitialData());
+  // }, []);
 
   return (
     <div className="App">
@@ -30,8 +29,8 @@ function App({ dispatch }) {
   );
 }
 
-App.propTypes = {
-  dispatch: PropTypes.func.isRequired
-};
+// App.propTypes = {
+//   dispatch: PropTypes.func.isRequired
+// };
 
 export default connect()(App);
