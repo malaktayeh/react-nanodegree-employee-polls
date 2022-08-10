@@ -17,7 +17,7 @@ function NavBar() {
   return (
     <Navbar bg="light" variant="light" expand="md" fixed="top" sticky="top">
       <Container>
-        <LinkContainer to="/dashboard">
+        <LinkContainer to="/">
           <Navbar.Brand>Employee Polls</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

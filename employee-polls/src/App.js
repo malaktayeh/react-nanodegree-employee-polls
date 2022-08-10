@@ -20,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login user={authedUser} />} />
         <Route
           path="/add-poll"
+          exact
           element={
             <PrivateRoute>
               <AddPoll />
@@ -28,6 +29,7 @@ function App() {
         />
         <Route
           path="/my-polls"
+          exact
           element={
             <PrivateRoute>
               <MyPolls />
@@ -35,7 +37,7 @@ function App() {
           }
         />
         <Route
-          path="/poll"
+          path="/poll/:id"
           element={
             <PrivateRoute>
               <Poll />
@@ -44,6 +46,7 @@ function App() {
         />
         <Route
           path="/leaderboard"
+          exact
           element={
             <PrivateRoute>
               <Leaderboard />
