@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { _getUsers } from '../../_DATA';
@@ -16,6 +17,7 @@ const usersSlice = createSlice({
       state.loading = true;
     },
     getUsersSuccess: (state, { payload }) => {
+      console.log(payload);
       state.users = payload;
       state.loading = false;
       state.hasErrors = false;

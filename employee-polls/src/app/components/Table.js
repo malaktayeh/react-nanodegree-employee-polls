@@ -1,39 +1,36 @@
+/* eslint-disable react/forbid-prop-types */
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table';
 
-function LeaderboardTable() {
+function LeaderboardTable({ data }) {
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
           <th>#</th>
           <th>User</th>
-          <th>Num of polls created</th>
           <th>Num of polls answered</th>
+          <th>Num of polls created</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>@Mark</td>
-          <td>10</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>@Sarah</td>
-          <td>5</td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>@birdy</td>
-          <td>2</td>
-          <td>3</td>
-        </tr>
+        {Object.values(data).map((user, index) => (
+          <tr key={user.user}>
+            <td>{index + 1}</td>
+            <td>@{user.user}</td>
+            <td>{user.pollsAnswers}</td>
+            <td>{user.pollsCreated}</td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
 }
+
+LeaderboardTable.propTypes = {
+  data: PropTypes.object.isRequired
+};
 
 export default LeaderboardTable;
