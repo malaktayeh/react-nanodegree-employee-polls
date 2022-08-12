@@ -15,8 +15,6 @@ function Leaderboard() {
       pollsCreated: Object.keys(key[1].questions).length
     })
   );
-  // eslint-disable-next-line no-console
-  console.log(typeof leaderboard);
 
   return (
     <>
