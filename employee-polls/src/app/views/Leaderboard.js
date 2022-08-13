@@ -3,10 +3,10 @@ import Container from 'react-bootstrap/esm/Container';
 import { useSelector } from 'react-redux';
 import NavBar from '../components/Navbar';
 import LeaderboardTable from '../components/Table';
-import { usersSelector } from '../features/usersSlice';
+import { selectEntities } from '../features/usersSlice';
 
 function Leaderboard() {
-  const { users } = useSelector(usersSelector);
+  const { users } = useSelector(selectEntities);
 
   const leaderboard = Object.entries(users).map((key) =>
     Object({

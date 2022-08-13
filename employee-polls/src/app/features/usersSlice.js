@@ -1,53 +1,43 @@
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import { _getUsers } from '../../_DATA';
 
-export const initialState = {
-  loading: false,
-  hasErrors: false,
-  users: {}
-};
+const usersAdapter = createEntityAdapter();
+
+const initialState = usersAdapter.getInitialState({
+  status: 'idle',
+  error: null
+});
+
+// Asynchronous thunk action
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
+  const response = await _getUsers();
+  return response;
+});
 
 const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {
-    getUsers: (state) => {
-      state.loading = true;
-    },
-    getUsersSuccess: (state, { payload }) => {
-      console.log(payload);
-      state.users = payload;
-      state.loading = false;
-      state.hasErrors = false;
-    },
-    getUsersFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
-    }
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchUsers.fulfilled, (state, { payload }) => {
+      state.status = 'succeeded';
+      usersAdapter.setAll(state, payload);
+    });
+    builder.addCase(fetchUsers.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchUsers.rejected, (state) => {
+      state.status = 'failed';
+      state.error = 'Failed to fetch users.';
+    });
   }
 });
-
-// ACTIONS
-export const { getUsers, getUsersSuccess, getUsersFailure } = usersSlice.actions;
-
-// SELECTORS
-export const usersSelector = (state) => state.users;
 
 // REDUCER
 export default usersSlice.reducer;
 
-// Asynchronous thunk action
-export function fetchUsers() {
-  return async (dispatch) => {
-    dispatch(getUsers());
-
-    try {
-      const response = await _getUsers();
-      dispatch(getUsersSuccess(response));
-    } catch (error) {
-      dispatch(getUsersFailure());
-    }
-  };
-}
+// SELECTORS
+export const { selectEntities, selectAll, selectIds, selectTotal, selectById } =
+  usersAdapter.getSelectors((state) => state.users);
