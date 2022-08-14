@@ -1,26 +1,37 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
+import { useDispatch } from 'react-redux';
 import NavBar from '../components/Navbar';
-import { _saveQuestionAnswer } from '../../_DATA';
+import { vote } from '../features/questionsSlice';
 
 function Poll() {
+  const dispatch = useDispatch();
   const { state } = useLocation();
+  const [votedForOptionOne] = useState(state.q.optionOne.votes.includes(state.authedUserId));
+  const [votedForOptionTwo] = useState(state.q.optionTwo.votes.includes(state.authedUserId));
+
+  // console.log(state.authedUserId);
+  // console.log(state.q.optionOne.votes);
+  // console.log(state.q.optionTwo.votes);
+  // console.log(votedForOptionOne);
+  // console.log(votedForOptionTwo);
 
   const handleClick = (selection) => {
-    // eslint-disable-next-line no-console
-    console.log(selection);
+    // DO NOTHING IF THE USER SELECTED SAME OPTION
+    if (votedForOptionOne === true && selection === 'optionOne') return;
+    if (votedForOptionTwo === true && selection === 'optionTwo') return;
+
     const submission = {
       authedUser: state.authedUserId,
       qid: state.q.id,
       answer: selection
     };
-    // eslint-disable-next-line no-console
-    console.log(submission);
-    fetch(_saveQuestionAnswer(submission));
+    dispatch(vote(submission));
   };
 
   return (
@@ -35,10 +46,22 @@ function Poll() {
         </Row>
         <Row>
           <Col xs>
-            <Button onClick={() => handleClick('optionOne')}>{state.q.optionOne.text}</Button>
+            {votedForOptionOne ? (
+              <Button onClick={() => handleClick('optionOne')}>{state.q.optionOne.text}</Button>
+            ) : (
+              <Button variant="outline-primary" onClick={() => handleClick('optionOne')}>
+                {state.q.optionOne.text}
+              </Button>
+            )}
           </Col>
           <Col xs>
-            <Button onClick={() => handleClick('optionTwo')}>{state.q.optionTwo.text}</Button>
+            {votedForOptionTwo ? (
+              <Button onClick={() => handleClick('optionTwo')}>{state.q.optionTwo.text}</Button>
+            ) : (
+              <Button variant="outline-primary" onClick={() => handleClick('optionTwo')}>
+                {state.q.optionTwo.text}
+              </Button>
+            )}
           </Col>
         </Row>
       </Container>
