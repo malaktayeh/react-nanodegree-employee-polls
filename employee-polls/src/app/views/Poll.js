@@ -5,9 +5,23 @@ import Col from 'react-bootstrap/Col';
 import { useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import NavBar from '../components/Navbar';
+import { _saveQuestionAnswer } from '../../_DATA';
 
 function Poll() {
   const { state } = useLocation();
+
+  const handleClick = (selection) => {
+    // eslint-disable-next-line no-console
+    console.log(selection);
+    const submission = {
+      authedUser: state.authedUserId,
+      qid: state.q.id,
+      answer: selection
+    };
+    // eslint-disable-next-line no-console
+    console.log(submission);
+    fetch(_saveQuestionAnswer(submission));
+  };
 
   return (
     <>
@@ -21,10 +35,10 @@ function Poll() {
         </Row>
         <Row>
           <Col xs>
-            <Button>{state.q.optionOne.text}</Button>
+            <Button onClick={() => handleClick('optionOne')}>{state.q.optionOne.text}</Button>
           </Col>
           <Col xs>
-            <Button>{state.q.optionTwo.text}</Button>
+            <Button onClick={() => handleClick('optionTwo')}>{state.q.optionTwo.text}</Button>
           </Col>
         </Row>
       </Container>
