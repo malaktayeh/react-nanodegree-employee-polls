@@ -6,7 +6,7 @@ import LeaderboardTable from '../components/Table';
 import { selectEntities } from '../features/usersSlice';
 
 function Leaderboard() {
-  const { users } = useSelector(selectEntities);
+  const users = useSelector(selectEntities);
 
   const leaderboard = Object.entries(users).map((key) =>
     Object({

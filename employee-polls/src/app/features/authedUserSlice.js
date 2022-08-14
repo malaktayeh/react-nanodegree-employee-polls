@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
-// import { _getUsers } from '../../_DATA';
 
 export const initialState = {
-  loading: false,
-  hasErrors: false,
+  status: 'idle',
+  errors: false,
   authedUser: {}
 };
 
@@ -13,26 +12,26 @@ const authedUserSlice = createSlice({
   initialState,
   reducers: {
     getAuthedUser: (state) => {
-      state.loading = true;
+      state.status = 'loading';
     },
     getAuthedUserSuccess: (state, { payload }) => {
       state.authedUser = payload;
-      state.loading = false;
-      state.hasErrors = false;
+      state.status = 'succeeded';
+      state.errors = null;
     },
     getAuthedUserFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
+      state.status = 'failed';
+      state.hasErrors = 'An error has occured while getting the authed users.';
     },
     setAuthedUser: (state, { payload }) => {
       state.authedUser = payload;
-      state.loading = false;
-      state.hasErrors = false;
+      state.status = 'succeeded';
+      state.error = null;
     },
     removeAuthedUser: (state) => {
       state.authedUser = {};
-      state.loading = false;
-      state.hasErrors = false;
+      state.status = 'succeeded';
+      state.errors = null;
     }
   }
 });

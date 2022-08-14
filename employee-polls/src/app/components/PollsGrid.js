@@ -23,7 +23,7 @@ function PollsGrid({ questions }) {
 
 PollsGrid.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
-  questions: PropTypes.object.isRequired
+  questions: PropTypes.array.isRequired
 };
 
 export default PollsGrid;

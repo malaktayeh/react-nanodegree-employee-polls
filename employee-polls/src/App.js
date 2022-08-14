@@ -5,7 +5,7 @@ import PrivateRoute from './app/components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './app/views/Login';
 import AddPoll from './app/views/AddPoll';
-import MyPolls from './app/views/MyPolls';
+// import MyPolls from './app/views/MyPolls';
 import Poll from './app/views/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
@@ -27,7 +27,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/my-polls"
           exact
           element={
@@ -35,7 +35,7 @@ function App() {
               <MyPolls />
             </PrivateRoute>
           }
-        />
+        /> */}
         <Route
           path="/poll/:id"
           element={
