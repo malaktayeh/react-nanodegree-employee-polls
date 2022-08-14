@@ -39,7 +39,11 @@ function Dashboard() {
         {loading || error ? (
           <Spinner animation="border" />
         ) : (
-          <PollsGrid questions={unanswered.map((v) => v[1])} authedUserId={authedUser.id} />
+          <PollsGrid
+            voteStatus="unanswered"
+            questions={unanswered.map((v) => v[1])}
+            authedUserId={authedUser.id}
+          />
         )}
       </Container>
 
@@ -48,7 +52,11 @@ function Dashboard() {
         {loading || error ? (
           <Spinner animation="border" />
         ) : (
-          <PollsGrid questions={answered.map((v) => v[1])} authedUserId={authedUser.id} />
+          <PollsGrid
+            voteStatus="answered"
+            questions={answered.map((v) => v[1])}
+            authedUserId={authedUser.id}
+          />
         )}
       </Container>
     </>
