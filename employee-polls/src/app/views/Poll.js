@@ -12,6 +12,7 @@ import { vote } from '../features/questionsSlice';
 function Poll() {
   const dispatch = useDispatch();
   const { state } = useLocation();
+  const [voted, setVoted] = useState(state.voteStatus);
   const [votedForOptionOne, setVotedForOptionOne] = useState(
     state.q.optionOne.votes.includes(state.authedUserId)
   );
@@ -19,34 +20,30 @@ function Poll() {
     state.q.optionTwo.votes.includes(state.authedUserId)
   );
 
-  const handleClick = (selection) => {
-    console.log(state.authedUserId);
-    console.log(state.q.optionOne.votes);
-    console.log(state.q.optionTwo.votes);
-    console.log(selection);
+  console.log(votedForOptionOne);
+  console.log(votedForOptionTwo);
 
-    // DO NOTHING IF THE USER SELECTED SAME OPTION
-    // if (votedForOptionOne === true && selection === 'optionOne') {
-    //   console.log('option one already selected');
-    //   return;
-    // }
-    // if (votedForOptionTwo === true && selection === 'optionTwo') {
-    //   console.log('option two already selected');
-    //   return;
-    // }
+  const handleClick = (selection, e) => {
+    console.log(e.preventDefault());
+    console.log('inside handle click');
 
-    if (votedForOptionOne === false || votedForOptionTwo === false) {
-      console.log('inside handle click');
+    if (selection === 'optionOne') {
       setVotedForOptionOne((prevAnswer) => !prevAnswer);
-      setVotedForOptionTwo((prevAnswer) => !prevAnswer);
-
-      const submission = {
-        authedUser: state.authedUserId,
-        qid: state.q.id,
-        answer: selection
-      };
-      dispatch(vote(submission));
     }
+    if (selection === 'optionTwo') {
+      setVotedForOptionTwo((prevAnswer) => !prevAnswer);
+    }
+
+    console.log(votedForOptionOne);
+    console.log(votedForOptionTwo);
+
+    const submission = {
+      authedUser: state.authedUserId,
+      qid: state.q.id,
+      answer: selection
+    };
+    dispatch(vote(submission));
+    setVoted('answered');
   };
 
   return (
@@ -60,29 +57,29 @@ function Poll() {
           </Col>
         </Row>
         {/* Unanswered Poll question UI */}
-        {state.voteStatus === 'unanswered' ? (
+        {voted === 'unanswered' ? (
           <div className="d-grid gap-2">
             {votedForOptionOne ? (
-              <Button className="btn-d-sm-block" onClick={() => handleClick('optionOne')}>
+              <Button className="btn-d-sm-block" onClick={(e) => handleClick('optionOne', e)}>
                 {state.q.optionOne.text}
               </Button>
             ) : (
               <Button
                 className="btn-d-sm-block"
                 variant="outline-primary"
-                onClick={() => handleClick('optionOne')}>
+                onClick={(e) => handleClick('optionOne', e)}>
                 {state.q.optionOne.text}
               </Button>
             )}
             {votedForOptionTwo ? (
-              <Button className="btn-d-sm-block" onClick={() => handleClick('optionTwo')}>
+              <Button className="btn-d-sm-block" onClick={(e) => handleClick('optionTwo', e)}>
                 {state.q.optionTwo.text}
               </Button>
             ) : (
               <Button
                 className="btn-d-sm-block"
                 variant="outline-primary"
-                onClick={() => handleClick('optionTwo')}>
+                onClick={(e) => handleClick('optionTwo', e)}>
                 {state.q.optionTwo.text}
               </Button>
             )}
@@ -91,33 +88,33 @@ function Poll() {
           <div className="d-grid gap-2">
             {votedForOptionOne ? (
               <>
-                <Button
-                  variant="outline-primary"
-                  style={{ 'pointer-events': 'none', cursor: 'not-allowed' }}
-                  className="btn-d-sm-block">
+                <Button disabled className="btn-d-sm-block">
                   {state.q.optionOne.text}
                 </Button>
-                <Button disabled className="btn-d-sm-block">
+                <Button
+                  variant="outline-primary"
+                  style={{ pointerEvents: 'none', cursor: 'not-allowed' }}
+                  className="btn-d-sm-block">
                   {state.q.optionTwo.text}
                 </Button>
               </>
             ) : (
               <>
-                <Button disabled className="btn-d-sm-block">
-                  {state.q.optionTwo.text}
-                </Button>
                 <Button
                   variant="outline-primary"
-                  style={{ 'pointer-events': 'none', cursor: 'not-allowed' }}
+                  style={{ pointerEvents: 'none', cursor: 'not-allowed' }}
                   className="btn-d-sm-block">
                   {state.q.optionOne.text}
+                </Button>
+                <Button disabled className="btn-d-sm-block">
+                  {state.q.optionTwo.text}
                 </Button>
               </>
             )}
           </div>
         )}
         <p className="mt-5">
-          {state.voteStatus === 'unanswered'
+          {voted === 'unanswered'
             ? 'Please note: you can only vote once and are not allowed to change your answer.'
             : 'Poll answered.'}
         </p>
