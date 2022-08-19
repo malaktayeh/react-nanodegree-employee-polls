@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +15,9 @@ import Sidebar from '../components/Sidebar';
 
 function Login() {
   const [username, setUsername] = useState('');
+  const [userNameError, setUserNameError] = useState(false);
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const appUser = useSelector((state) => selectById(state, username));
@@ -37,14 +40,18 @@ function Login() {
     if (appUser === undefined) {
       // eslint-disable-next-line no-console
       console.log('username does not exist!');
+      setUserNameError(true);
       return;
     }
+    setUserNameError(false);
 
     if (appUser.password !== password) {
       // eslint-disable-next-line no-console
       console.log('incorrect user password!');
+      setPasswordError(true);
       return;
     }
+    setPasswordError(false);
 
     dispatch(setAuthedUser(appUser));
     navigate('/');
@@ -89,22 +96,31 @@ function Login() {
                     required
                   />
                   <Form.Control.Feedback type="invalid">
-                    Please enter your username.
+                    {userNameError ? 'An error occured.' : null}
                   </Form.Control.Feedback>
+                  {userNameError ? (
+                    <Form.Control.Feedback>This username is not valid.</Form.Control.Feedback>
+                  ) : null}
                 </InputGroup>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  required
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <Form.Control.Feedback>
-                  {password.length > 5 ? 'Looks good!' : null}
-                </Form.Control.Feedback>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    required
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setPasswordError(false);
+                    }}
+                  />
+                  <Form.Control.Feedback type="invalid">An error occured.</Form.Control.Feedback>
+                  {passwordError ? (
+                    <Form.Control.Feedback>Wrong password. Please re-enter.</Form.Control.Feedback>
+                  ) : null}
+                </InputGroup>
               </Form.Group>
 
               <Button type="submit">Submit</Button>

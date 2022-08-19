@@ -9,6 +9,10 @@ import store from './app/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// If app is wrapped in React.StrictMode, Redux DevTools broswer extensionw will show every
+// action fired twice, see:
+// https://www.reddit.com/r/reactjs/comments/fynb6w/usereducer_cases_called_twice_from_single/
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
