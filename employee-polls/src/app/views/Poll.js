@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import { useDispatch } from 'react-redux';
 import NavBar from '../components/Navbar';
@@ -20,22 +19,13 @@ function Poll() {
     state.q.optionTwo.votes.includes(state.authedUserId)
   );
 
-  console.log(votedForOptionOne);
-  console.log(votedForOptionTwo);
-
-  const handleClick = (selection, e) => {
-    console.log(e.preventDefault());
-    console.log('inside handle click');
-
+  const handleClick = (selection) => {
     if (selection === 'optionOne') {
       setVotedForOptionOne((prevAnswer) => !prevAnswer);
     }
     if (selection === 'optionTwo') {
       setVotedForOptionTwo((prevAnswer) => !prevAnswer);
     }
-
-    console.log(votedForOptionOne);
-    console.log(votedForOptionTwo);
 
     const submission = {
       authedUser: state.authedUserId,
@@ -114,10 +104,19 @@ function Poll() {
           </div>
         )}
         <p className="mt-5">
-          {voted === 'unanswered'
-            ? 'Please note: you can only vote once and are not allowed to change your answer.'
-            : 'Poll answered.'}
-          {/* TODO: Return to dashboard link */}
+          {voted === 'unanswered' ? (
+            <p>Please note: you can only vote once and are not allowed to change your answer.</p>
+          ) : (
+            <>
+              <p>Poll answered!</p>
+              <Button variant="light">
+                <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+                  {' '}
+                  ⬅️ Return to dashboard{' '}
+                </Link>
+              </Button>
+            </>
+          )}
         </p>
       </Container>
     </>
