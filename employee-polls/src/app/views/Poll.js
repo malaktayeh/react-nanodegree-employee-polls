@@ -49,7 +49,7 @@ function Poll() {
   return (
     <>
       <NavBar />
-      <Container>
+      <Container style={{ maxWidth: '750px' }}>
         <h2 className="my-5 mx-2">Poll page</h2>
         <Row className="my-5">
           <Col xs>

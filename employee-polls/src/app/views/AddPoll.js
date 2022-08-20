@@ -46,8 +46,8 @@ function AddPoll() {
   return (
     <>
       <NavBar />
-      <Container fluid className="mt-5 mx-2">
-        <h2 className="mt-5 mx-2">Add a new poll question!</h2>
+      <Container className="mt-5 mb-2" style={{ maxWidth: '750px' }}>
+        <h2>Add a new poll question!</h2>
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
           <Form.Group controlId="formAnswerA" className="mt-4">
             <Form.Label>Option A</Form.Label>
@@ -55,7 +55,8 @@ function AddPoll() {
               <Form.Control
                 value={poll.optionOneText}
                 required
-                type="text"
+                as="textarea"
+                rows={3}
                 placeholder="Option A"
                 onChange={(e) => setPoll((prev) => ({ ...prev, optionOneText: e.target.value }))}
               />
@@ -69,7 +70,8 @@ function AddPoll() {
               <Form.Control
                 value={poll.optionTwoText}
                 required
-                type="text"
+                as="textarea"
+                rows={3}
                 placeholder="Option B"
                 onChange={(e) => setPoll((prev) => ({ ...prev, optionTwoText: e.target.value }))}
               />

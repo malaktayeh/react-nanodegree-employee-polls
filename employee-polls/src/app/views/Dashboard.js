@@ -34,7 +34,7 @@ function Dashboard() {
   return (
     <>
       <NavBar />
-      <Container fluid className="mt-5 mb-2">
+      <Container className="mt-5 mb-2">
         <h2 className="mb-3">Newly posted polls</h2>
         {loading || error ? (
           <Spinner animation="border" />
@@ -49,7 +49,7 @@ function Dashboard() {
         )}
       </Container>
 
-      <Container fluid className="mt-5 mb-2">
+      <Container className="mt-5 mb-2">
         <h2 className="mb-3">Completed polls</h2>
         {loading || error ? (
           <Spinner animation="border" />
