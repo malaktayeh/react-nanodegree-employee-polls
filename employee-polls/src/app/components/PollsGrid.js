@@ -1,23 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Poll from './Poll';
 
 function PollsGrid({ voteStatus, questions, authedUserId }) {
   return (
-    <Row>
+    <>
       {Object.entries(questions).map((key) => (
-        <div key={key[1].id}>
-          <Link to={`/poll/${key[1].id}`} state={{ q: key[1], authedUserId, voteStatus }}>
-            <Col>
-              <Poll question={key[1]} />
-            </Col>
-          </Link>
-        </div>
+        <Col xs={12} sm={12} md={4} xl={3} key={key[1].id} className="mt-3">
+          <Poll question={key[1]} voteStatus={voteStatus} authedUserId={authedUserId} />
+        </Col>
       ))}
-    </Row>
+    </>
   );
 }
 

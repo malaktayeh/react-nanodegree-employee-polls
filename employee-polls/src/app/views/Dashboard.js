@@ -1,7 +1,7 @@
-/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import { fetchQuestions, questionsSelector } from '../features/questionsSlice';
 import NavBar from '../components/Navbar';
@@ -39,11 +39,13 @@ function Dashboard() {
         {loading || error ? (
           <Spinner animation="border" />
         ) : (
-          <PollsGrid
-            voteStatus="unanswered"
-            questions={unanswered.map((v) => v[1])}
-            authedUserId={authedUser.id}
-          />
+          <Row>
+            <PollsGrid
+              voteStatus="unanswered"
+              questions={unanswered.map((v) => v[1])}
+              authedUserId={authedUser.id}
+            />
+          </Row>
         )}
       </Container>
 
@@ -52,11 +54,13 @@ function Dashboard() {
         {loading || error ? (
           <Spinner animation="border" />
         ) : (
-          <PollsGrid
-            voteStatus="answered"
-            questions={answered.map((v) => v[1])}
-            authedUserId={authedUser.id}
-          />
+          <Row>
+            <PollsGrid
+              voteStatus="answered"
+              questions={answered.map((v) => v[1])}
+              authedUserId={authedUser.id}
+            />
+          </Row>
         )}
       </Container>
     </>

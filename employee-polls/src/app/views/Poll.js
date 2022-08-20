@@ -117,6 +117,7 @@ function Poll() {
           {voted === 'unanswered'
             ? 'Please note: you can only vote once and are not allowed to change your answer.'
             : 'Poll answered.'}
+          {/* TODO: Return to dashboard link */}
         </p>
       </Container>
     </>
