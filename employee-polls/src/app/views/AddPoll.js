@@ -61,46 +61,41 @@ function AddPoll() {
             </Button>
           </>
         ) : (
-          <>
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              <Form.Group controlId="formAnswerA" className="mt-4">
-                <Form.Label>Option A</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    value={poll.optionOneText}
-                    required
-                    as="textarea"
-                    rows={3}
-                    placeholder="Option A"
-                    onChange={(e) =>
-                      setPoll((prev) => ({ ...prev, optionOneText: e.target.value }))
-                    }
-                  />
-                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
+          <Form noValidate validated={validated} onSubmit={handleSubmit}>
+            <Form.Group controlId="formAnswerA" className="mt-4">
+              <Form.Label>Option A</Form.Label>
+              <InputGroup hasValidation>
+                <Form.Control
+                  value={poll.optionOneText}
+                  required
+                  as="textarea"
+                  rows={3}
+                  placeholder="Option A"
+                  onChange={(e) => setPoll((prev) => ({ ...prev, optionOneText: e.target.value }))}
+                />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
 
-              <Form.Group controlId="formAnswerB" className="mt-4">
-                <Form.Label>Option B</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    value={poll.optionTwoText}
-                    required
-                    as="textarea"
-                    rows={3}
-                    placeholder="Option B"
-                    onChange={(e) =>
-                      setPoll((prev) => ({ ...prev, optionTwoText: e.target.value }))
-                    }
-                  />
-                  <Form.Control.Feedback>Perfect!</Form.Control.Feedback>
-                </InputGroup>
-              </Form.Group>
-            </Form>
+            <Form.Group controlId="formAnswerB" className="mt-4">
+              <Form.Label>Option B</Form.Label>
+              <InputGroup hasValidation>
+                <Form.Control
+                  value={poll.optionTwoText}
+                  required
+                  as="textarea"
+                  rows={3}
+                  placeholder="Option B"
+                  onChange={(e) => setPoll((prev) => ({ ...prev, optionTwoText: e.target.value }))}
+                />
+                <Form.Control.Feedback>Perfect!</Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
+
             <Button type="submit" className="mt-5">
               {loading ? <Spinner animation="border" /> : 'Submit'}
             </Button>
-          </>
+          </Form>
         )}
       </Container>
     </>

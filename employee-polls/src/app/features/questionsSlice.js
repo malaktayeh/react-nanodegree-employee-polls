@@ -29,7 +29,16 @@ const questionsSlice = createSlice({
       state.loading = true;
     },
     postQuestionSuccess: (state, { payload }) => {
-      state.questions = { ...state.questions, ...payload };
+      // MAKE COPY OF CURRENT STATE
+      const newState = { ...state };
+
+      try {
+        newState.questions[payload.id] = payload;
+      } catch (err) {
+        console.log(err);
+      }
+
+      state.questions = { ...state.questions, ...newState.questions };
       state.loading = false;
       state.hasErrors = false;
     },
