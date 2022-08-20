@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/esm/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
@@ -48,42 +49,59 @@ function AddPoll() {
       <NavBar />
       <Container className="mt-5 mb-2" style={{ maxWidth: '750px' }}>
         <h2>Add a new poll question!</h2>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-          <Form.Group controlId="formAnswerA" className="mt-4">
-            <Form.Label>Option A</Form.Label>
-            <InputGroup hasValidation>
-              <Form.Control
-                value={poll.optionOneText}
-                required
-                as="textarea"
-                rows={3}
-                placeholder="Option A"
-                onChange={(e) => setPoll((prev) => ({ ...prev, optionOneText: e.target.value }))}
-              />
-              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
 
-          <Form.Group controlId="formAnswerB" className="mt-4">
-            <Form.Label>Option B</Form.Label>
-            <InputGroup hasValidation>
-              <Form.Control
-                value={poll.optionTwoText}
-                required
-                as="textarea"
-                rows={3}
-                placeholder="Option B"
-                onChange={(e) => setPoll((prev) => ({ ...prev, optionTwoText: e.target.value }))}
-              />
-              <Form.Control.Feedback>Perfect!</Form.Control.Feedback>
-            </InputGroup>
-          </Form.Group>
+        {posted && !loading ? (
+          <>
+            <p className="mt-4">Successfully submited your poll!</p>
+            <Button variant="light">
+              <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+                {' '}
+                ⬅️ Return to dashboard{' '}
+              </Link>
+            </Button>
+          </>
+        ) : (
+          <>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+              <Form.Group controlId="formAnswerA" className="mt-4">
+                <Form.Label>Option A</Form.Label>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    value={poll.optionOneText}
+                    required
+                    as="textarea"
+                    rows={3}
+                    placeholder="Option A"
+                    onChange={(e) =>
+                      setPoll((prev) => ({ ...prev, optionOneText: e.target.value }))
+                    }
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
 
-          <Button type="submit" className="mt-5">
-            {loading ? <Spinner animation="border" /> : 'Submit'}
-          </Button>
-        </Form>
-        {posted && !loading ? 'Successfully submited your poll!' : ''}
+              <Form.Group controlId="formAnswerB" className="mt-4">
+                <Form.Label>Option B</Form.Label>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    value={poll.optionTwoText}
+                    required
+                    as="textarea"
+                    rows={3}
+                    placeholder="Option B"
+                    onChange={(e) =>
+                      setPoll((prev) => ({ ...prev, optionTwoText: e.target.value }))
+                    }
+                  />
+                  <Form.Control.Feedback>Perfect!</Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
+            </Form>
+            <Button type="submit" className="mt-5">
+              {loading ? <Spinner animation="border" /> : 'Submit'}
+            </Button>
+          </>
+        )}
       </Container>
     </>
   );
