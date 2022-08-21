@@ -3,12 +3,13 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
-import { removeAuthedUser } from '../features/authedUserSlice';
+import { authedUserSelector, removeAuthedUser } from '../features/authedUserSlice';
 
 function NavBar() {
   const dispatch = useDispatch();
+  const { authedUser } = useSelector(authedUserSelector);
 
   const signOut = () => {
     dispatch(removeAuthedUser());
@@ -35,7 +36,7 @@ function NavBar() {
               </LinkContainer>
             </NavDropdown>
           </Nav>
-          <NavDropdown title="Account" className="justify-content-end">
+          <NavDropdown title={authedUser.name} className="justify-content-end">
             <LinkContainer to="/settings">
               <NavDropdown.Item>Settings</NavDropdown.Item>
             </LinkContainer>
