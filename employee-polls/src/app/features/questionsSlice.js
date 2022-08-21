@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from '../../_DATA';
@@ -17,13 +16,12 @@ export const fetchQuestions = createAsyncThunk('questions/fetchQuestions', async
 });
 
 export const addQuestion = createAsyncThunk('questions/addQuestion', async (payload) => {
-  console.log(payload);
   const response = await _saveQuestion(payload);
   return response;
 });
 
-export const vote = createAsyncThunk('questions/saveAnswer', async () => {
-  const response = await _saveQuestionAnswer();
+export const vote = createAsyncThunk('questions/saveAnswer', async (payload) => {
+  const response = await _saveQuestionAnswer(payload);
   return response;
 });
 
@@ -57,11 +55,41 @@ const questionsSlice = createSlice({
       state.status = 'failed';
       state.error = 'Failed to add new question.';
     });
-    builder.addCase(vote.fulfilled, (state, { payload }) => {
+    builder.addCase(vote.fulfilled, (state, payload) => {
+      const questionId = payload.meta.arg.qid;
+      const selectedOption = payload.meta.arg.answer;
+      const user = payload.meta.arg.authedUser;
+
+      // make shallow copy of question that needs to get updated in questions slice
+      const copyObj = questionsAdapter.getSelectors().selectById(state, questionId);
+
+      const updatedQuestion = {
+        ...copyObj,
+        id: copyObj.id,
+        author: copyObj.author,
+        optionOne: {
+          ...copyObj.optionOne,
+          text: copyObj.optionOne.text,
+          votes: [...copyObj.optionOne.votes]
+        },
+        optionTwo: {
+          ...copyObj.optionTwo,
+          text: copyObj.optionTwo.text,
+          votes: [...copyObj.optionTwo.votes]
+        },
+        timestamp: copyObj.timestamp
+      };
+
+      // add current user to votes array
+      updatedQuestion[selectedOption].votes.push(user);
+
+      // update state
       state.status = 'succeeded';
       questionsAdapter.updateOne(state, {
-        id: payload.id,
-        questions: payload.questions
+        id: questionId,
+        changes: {
+          ...updatedQuestion
+        }
       });
     });
     builder.addCase(vote.pending, (state) => {
@@ -80,7 +108,7 @@ export const {
   selectAll: selectAllQuestions,
   selectIds,
   selectTotal,
-  selectById: idsAdapter,
+  selectById,
   selectEntities: selectQuestionsEntities,
   addNewQuestion,
   updateQuestion
