@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from './app/views/Login';
 import AddPoll from './app/views/AddPoll';
-import MyPolls from './app/views/MyPolls';
-import Poll from './app/views/Poll';
+// import UserPollList from './app/components/UserPollList';
+import Poll from './app/components/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
 import { authedUserSelector } from './app/features/authedUserSlice';
@@ -33,7 +33,8 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <MyPolls />
+              <div>hehe</div>
+              {/* <UserPollList /> */}
             </PrivateRoute>
           }
         />
