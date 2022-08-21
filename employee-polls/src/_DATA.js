@@ -5,7 +5,7 @@ let users = {
     id: 'sarahedo',
     password: 'password123',
     name: 'Sarah Edo',
-    avatarURL: './app/assets/svg/user-252494.svg',
+    avatarURL: '../assets/png/user-252494.png',
     answers: {
       '8xf0y6ziyjabvozdd253nd': 'optionOne',
       '6ni6ok3ym7mf1p33lnez': 'optionOne',
@@ -18,7 +18,7 @@ let users = {
     id: 'tylermcginnis',
     password: 'abc321',
     name: 'Tyler McGinnis',
-    avatarURL: './app/assets/svg/user-252480.svg',
+    avatarURL: '../assets/png/user-252480.png',
     answers: {
       vthrdm985a262al8qx3do: 'optionOne',
       xj352vofupe1dqz9emx13r: 'optionTwo'
@@ -29,7 +29,7 @@ let users = {
     id: 'mtsamis',
     password: 'xyz123',
     name: 'Mike Tsamis',
-    avatarURL: './app/assets/svg/user-252479.svg',
+    avatarURL: '../assets/png/user-252479.png',
     answers: {
       xj352vofupe1dqz9emx13r: 'optionOne',
       vthrdm985a262al8qx3do: 'optionTwo',
@@ -41,7 +41,7 @@ let users = {
     id: 'zoshikanlu',
     password: 'pass246',
     name: 'Zenobia Oshikanlu',
-    avatarURL: './app/assets/svg/user-252489.svg',
+    avatarURL: '../assets/png/user-252489.png',
     answers: {
       xj352vofupe1dqz9emx13r: 'optionOne'
     },
