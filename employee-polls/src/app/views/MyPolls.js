@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/esm/Container';
+import Container from 'react-bootstrap/Container';
 import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import NavBar from '../components/Navbar';

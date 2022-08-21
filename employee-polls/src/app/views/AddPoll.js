@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/esm/Container';
+import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from 'react-bootstrap/esm/Spinner';
+import Spinner from 'react-bootstrap/Spinner';
 import NavBar from '../components/Navbar';
 import { addQuestion } from '../features/questionsSlice';
 import { authedUserSelector } from '../features/authedUserSlice';
