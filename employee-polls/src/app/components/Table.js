@@ -17,6 +17,7 @@ function LeaderboardTable({ data }) {
           <th>#</th>
           <th>Avatar</th>
           <th>User</th>
+          <th>Name</th>
           <th>Num of polls answered</th>
           <th>Num of polls created</th>
         </tr>
@@ -33,6 +34,7 @@ function LeaderboardTable({ data }) {
               />
             </td>
             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>@{user.user}</td>
+            <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>{user.name}</td>
             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>{user.pollsAnswered}</td>
             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>{user.pollsCreated}</td>
           </tr>

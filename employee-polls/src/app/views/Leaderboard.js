@@ -11,6 +11,7 @@ function Leaderboard() {
   const leaderboard = Object.entries(users).map((key) =>
     Object({
       user: key[1].id,
+      name: key[1].name,
       pollsAnswered: Object.keys(key[1].answers).length,
       pollsCreated: Object.keys(key[1].questions).length,
       avatarURL: key[1].avatarURL
