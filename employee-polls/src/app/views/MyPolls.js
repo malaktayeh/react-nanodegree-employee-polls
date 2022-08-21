@@ -4,11 +4,12 @@ import Container from 'react-bootstrap/esm/Container';
 import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import NavBar from '../components/Navbar';
-import { questionsSelector } from '../features/questionsSlice';
+// import { questionsSelector } from '../features/questionsSlice';
 import { authedUserSelector } from '../features/authedUserSlice';
 
 function MyPolls() {
-  const { questions } = useSelector(questionsSelector);
+  const questions = {};
+  // const { questions } = useSelector(questionsSelector);
   const { authedUser } = useSelector(authedUserSelector);
   const authedUserQuestions = Object.keys(questions)
     .filter((q) => questions[q].author === authedUser.id)

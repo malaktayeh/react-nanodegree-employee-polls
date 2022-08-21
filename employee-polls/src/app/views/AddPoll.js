@@ -7,7 +7,10 @@ import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/esm/Spinner';
 import NavBar from '../components/Navbar';
-import { addQuestion, questionsSelector } from '../features/questionsSlice';
+import {
+  addQuestion
+  // questionsSelector
+} from '../features/questionsSlice';
 import { authedUserSelector } from '../features/authedUserSlice';
 
 function AddPoll() {
@@ -15,7 +18,8 @@ function AddPoll() {
 
   const [validated, setValidated] = useState(false);
   const [posted, setPosted] = useState(false);
-  const { loading } = useSelector(questionsSelector);
+  // const { loading } = useSelector(questionsSelector);
+  const loading = false;
   const { authedUser } = useSelector(authedUserSelector);
 
   const [poll, setPoll] = useState({

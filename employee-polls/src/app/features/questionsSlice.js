@@ -1,34 +1,48 @@
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit';
 import { _getQuestions, _saveQuestion, _saveQuestionAnswer } from '../../_DATA';
 
-export const initialState = {
-  loading: false,
-  hasErrors: false,
-  questions: {}
-};
+const questionsAdapter = createEntityAdapter();
+
+const initialState = questionsAdapter.getInitialState({
+  status: 'idle',
+  error: null
+});
+
+// Asynchronous thunk action
+export const fetchQuestions = createAsyncThunk('questions/fetchQuestions', async () => {
+  const response = await _getQuestions();
+  return response;
+});
+
+export const addQuestion = createAsyncThunk('questions/addQuestion', async () => {
+  const response = await _saveQuestion();
+  return response;
+});
+
+export const vote = createAsyncThunk('questions/saveAnswer', async () => {
+  const response = await _saveQuestionAnswer();
+  return response;
+});
 
 const questionsSlice = createSlice({
   name: 'questions',
   initialState,
-  reducers: {
-    getQuestions: (state) => {
-      state.loading = true;
-    },
-    getQuestionsSuccess: (state, { payload }) => {
-      state.questions = payload;
-      state.loading = false;
-      state.hasErrors = false;
-    },
-    getQuestionsFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
-    },
-    postQuestion: (state) => {
-      state.loading = true;
-    },
-    postQuestionSuccess: (state, { payload }) => {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchQuestions.fulfilled, (state, { payload }) => {
+      state.status = 'succeeded';
+      questionsAdapter.setAll(state, payload);
+    });
+    builder.addCase(fetchQuestions.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(fetchQuestions.rejected, (state) => {
+      state.status = 'failed';
+      state.error = 'Failed to fetch questions.';
+    });
+    builder.addCase(addQuestion.fulfilled, (state, { payload }) => {
       // MAKE COPY OF CURRENT STATE
       const newState = { ...state };
 
@@ -37,19 +51,17 @@ const questionsSlice = createSlice({
       } catch (err) {
         console.log(err);
       }
-
       state.questions = { ...state.questions, ...newState.questions };
-      state.loading = false;
-      state.hasErrors = false;
-    },
-    postQuestionFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
-    },
-    postQuestionAnswer: (state) => {
-      state.loading = true;
-    },
-    postQuestionAnswerSuccess: (state, { payload }) => {
+      state.status = 'succeeded';
+    });
+    builder.addCase(addQuestion.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(addQuestion.rejected, (state) => {
+      state.status = 'failed';
+      state.error = 'Failed to add new question.';
+    });
+    builder.addCase(vote.fulfilled, (state, { payload }) => {
       // MAKE COPY OF CURRENT STATE
       const newState = { ...state };
       // COPY CURRENT VOTES ARRAY, ADD ID OF USER WHO VOTES
@@ -64,73 +76,20 @@ const questionsSlice = createSlice({
         console.log(err);
       }
       state.questions = { ...state.questions, ...newState.questions };
-      state.loading = false;
-      state.hasErrors = false;
-    },
-    postQuestionAnswerFailure: (state) => {
-      state.loading = false;
-      state.hasErrors = true;
-    }
+    });
+    builder.addCase(vote.pending, (state) => {
+      state.status = 'loading';
+    });
+    builder.addCase(vote.rejected, (state) => {
+      state.status = 'failed';
+      state.error = 'Failed to save answer.';
+    });
   }
 });
 
-// ACTIONS
-export const {
-  getQuestions,
-  getQuestionsSuccess,
-  getQuestionsFailure,
-  postQuestion,
-  postQuestionFailure,
-  postQuestionSuccess,
-  postQuestionAnswer,
-  postQuestionAnswerSuccess,
-  postQuestionAnswerFailure
-} = questionsSlice.actions;
-
 // SELECTORS
-export const questionsSelector = (state) => state.questions;
+export const { selectEntities, selectAll, selectIds, selectTotal, selectById } =
+  questionsAdapter.getSelectors((state) => state.questions);
 
 // REDUCER
 export default questionsSlice.reducer;
-
-// Asynchronous thunk action
-export function fetchQuestions() {
-  return async (dispatch) => {
-    dispatch(getQuestions());
-
-    try {
-      const response = await _getQuestions();
-      dispatch(getQuestionsSuccess(response));
-    } catch (error) {
-      dispatch(getQuestionsFailure());
-    }
-  };
-}
-
-// Asynchronous thunk action
-export function addQuestion(question) {
-  return async (dispatch) => {
-    dispatch(postQuestion());
-
-    try {
-      const response = await _saveQuestion(question);
-      dispatch(postQuestionSuccess(response));
-    } catch (error) {
-      dispatch(postQuestionFailure());
-    }
-  };
-}
-
-// Asynchronous thunk action
-export function vote(submission) {
-  return async (dispatch) => {
-    dispatch(postQuestionAnswer());
-
-    try {
-      await _saveQuestionAnswer(submission);
-      dispatch(postQuestionAnswerSuccess(submission));
-    } catch (error) {
-      dispatch(postQuestionAnswerFailure());
-    }
-  };
-}
