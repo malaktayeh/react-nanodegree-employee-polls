@@ -10,6 +10,7 @@ import MyPolls from './app/views/MyPolls';
 import Poll from './app/components/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
+import Error404 from './app/views/Error404';
 import { authedUserSelector } from './app/features/authedUserSlice';
 
 function App() {
@@ -62,7 +63,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="*" element={<div>404!</div>} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </div>
   );
