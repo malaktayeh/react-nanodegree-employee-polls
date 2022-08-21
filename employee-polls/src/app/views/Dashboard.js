@@ -1,20 +1,20 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
-// import Spinner from 'react-bootstrap/Spinner';
-import {
-  fetchQuestions
-  // questionsSelector
-} from '../features/questionsSlice';
+import Spinner from 'react-bootstrap/Spinner';
+import { fetchQuestions, selectAllQuestions } from '../features/questionsSlice';
 import NavBar from '../components/Navbar';
 import PollsGrid from '../components/PollsGrid';
 import { authedUserSelector } from '../features/authedUserSlice';
 
 function Dashboard() {
   const dispatch = useDispatch();
-  const questions = {};
-  // const { questions, loading, error } = useSelector(questionsSelector);
+  const questions = useSelector(selectAllQuestions);
+  const status = useSelector((state) => state.questions.status);
+  const error = useSelector((state) => state.questions.error);
   const { authedUser } = useSelector(authedUserSelector);
 
   // GET QUESTIONS THAT THE USER DID NOT ANSWER
@@ -33,39 +33,47 @@ function Dashboard() {
 
   useEffect(() => {
     dispatch(fetchQuestions());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
       <NavBar />
       <Container className="mt-5 mb-2">
         <h2 className="mb-3">Unanwered polls</h2>
-        {/* {loading || error ? (
+        {status === 'loading' ? (
           <Spinner animation="border" />
-        ) : ( */}
-        <Row>
-          <PollsGrid
-            voteStatus="unanswered"
-            questions={unanswered.map((v) => v[1])}
-            authedUserId={authedUser.id}
-          />
-        </Row>
-        {/* )} */}
+        ) : error ? (
+          <div>An error occured.</div>
+        ) : (
+          null(
+            <Row>
+              <PollsGrid
+                voteStatus="unanswered"
+                questions={unanswered.map((v) => v[1])}
+                authedUserId={authedUser.id}
+              />
+            </Row>
+          )
+        )}
       </Container>
 
       <Container className="mt-5 mb-2">
         <h2 className="mb-3">Answered polls</h2>
-        {/* {loading || error ? (
+        {status === 'loading' ? (
           <Spinner animation="border" />
-        ) : ( */}
-        <Row>
-          <PollsGrid
-            voteStatus="answered"
-            questions={answered.map((v) => v[1])}
-            authedUserId={authedUser.id}
-          />
-        </Row>
-        {/* )} */}
+        ) : error ? (
+          <div>An error occured.</div>
+        ) : (
+          null(
+            <Row>
+              <PollsGrid
+                voteStatus="answered"
+                questions={answered.map((v) => v[1])}
+                authedUserId={authedUser.id}
+              />
+            </Row>
+          )
+        )}
       </Container>
     </>
   );

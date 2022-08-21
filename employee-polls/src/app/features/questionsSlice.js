@@ -29,7 +29,11 @@ export const vote = createAsyncThunk('questions/saveAnswer', async () => {
 const questionsSlice = createSlice({
   name: 'questions',
   initialState,
-  reducers: {},
+  reducers: {
+    setAllQuestions: questionsAdapter.setAll,
+    addNewQuestion: questionsAdapter.addOne,
+    updateQuestion: questionsAdapter.updateOne
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchQuestions.fulfilled, (state, { payload }) => {
       state.status = 'succeeded';
@@ -43,16 +47,8 @@ const questionsSlice = createSlice({
       state.error = 'Failed to fetch questions.';
     });
     builder.addCase(addQuestion.fulfilled, (state, { payload }) => {
-      // MAKE COPY OF CURRENT STATE
-      const newState = { ...state };
-
-      try {
-        newState.questions[payload.id] = payload;
-      } catch (err) {
-        console.log(err);
-      }
-      state.questions = { ...state.questions, ...newState.questions };
       state.status = 'succeeded';
+      questionsAdapter.addOne(state, payload.id);
     });
     builder.addCase(addQuestion.pending, (state) => {
       state.status = 'loading';
@@ -62,20 +58,11 @@ const questionsSlice = createSlice({
       state.error = 'Failed to add new question.';
     });
     builder.addCase(vote.fulfilled, (state, { payload }) => {
-      // MAKE COPY OF CURRENT STATE
-      const newState = { ...state };
-      // COPY CURRENT VOTES ARRAY, ADD ID OF USER WHO VOTES
-      const newVotesArr = [
-        ...newState.questions[payload.qid][payload.answer].votes,
-        payload.authedUser
-      ];
-      // REPLACE OLD STATE VOTE ARRAY WITH NEW ARRAY
-      try {
-        newState.questions[payload.qid][payload.answer].votes = newVotesArr;
-      } catch (err) {
-        console.log(err);
-      }
-      state.questions = { ...state.questions, ...newState.questions };
+      state.status = 'succeeded';
+      questionsAdapter.updateOne(state, {
+        id: payload.id,
+        questions: payload.questions
+      });
     });
     builder.addCase(vote.pending, (state) => {
       state.status = 'loading';
@@ -88,8 +75,19 @@ const questionsSlice = createSlice({
 });
 
 // SELECTORS
-export const { selectEntities, selectAll, selectIds, selectTotal, selectById } =
-  questionsAdapter.getSelectors((state) => state.questions);
+export const {
+  setAllQuestions,
+  selectAll: selectAllQuestions,
+  selectIds,
+  selectTotal,
+  selectById,
+  selectEntities: selectQuestionsEntities,
+  addNewQuestion,
+  updateQuestion
+} = questionsAdapter.getSelectors((state) => state.questions);
+
+// // SELECTORS
+// export const questionsStatus = questionsAdapter.getSelectors((state) => state.questions.status);
 
 // REDUCER
 export default questionsSlice.reducer;
