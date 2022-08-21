@@ -4,12 +4,11 @@ import Container from 'react-bootstrap/esm/Container';
 import { useSelector } from 'react-redux';
 import Table from 'react-bootstrap/Table';
 import NavBar from '../components/Navbar';
-// import { questionsSelector } from '../features/questionsSlice';
+import { selectAllQuestions } from '../features/questionsSlice';
 import { authedUserSelector } from '../features/authedUserSlice';
 
 function MyPolls() {
-  const questions = {};
-  // const { questions } = useSelector(questionsSelector);
+  const questions = useSelector(selectAllQuestions);
   const { authedUser } = useSelector(authedUserSelector);
   const authedUserQuestions = Object.keys(questions)
     .filter((q) => questions[q].author === authedUser.id)
@@ -19,7 +18,7 @@ function MyPolls() {
     <>
       <NavBar />
       <Container>
-        <h2 className="my-5 mx-2">Polls you have posted!</h2>
+        <h2 className="my-5 mx-2">Polls you posted!</h2>
         {authedUserQuestions.length === 0 ? (
           <p>
             You have not submitted any polls yet. Click <Link to="/add">here</Link> to add one!
