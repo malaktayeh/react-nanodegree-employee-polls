@@ -38,16 +38,12 @@ function Login() {
   const validateUser = () => {
     // check if username exists
     if (appUser === undefined) {
-      // eslint-disable-next-line no-console
-      // console.log('username does not exist!');
       setUserNameError(true);
       return;
     }
     setUserNameError(false);
 
     if (appUser.password !== password) {
-      // eslint-disable-next-line no-console
-      // console.log('incorrect user password!');
       setPasswordError(true);
       return;
     }
