@@ -9,50 +9,50 @@ import questionsReducer, { setAllQuestions } from '../features/questionsSlice';
 
 // const dispatch = useDispatch();
 
-jest.mock(setAllQuestions, () => ({
-  ids: ['8xf0y6ziyjabvozdd253nd', '6ni6ok3ym7mf1p33lnez'],
-  entities: {
-    '8xf0y6ziyjabvozdd253nd': {
-      id: '8xf0y6ziyjabvozdd253nd',
-      author: 'sarahedo',
-      timestamp: 1467166872634
-    },
-    '6ni6ok3ym7mf1p33lnez': {
-      id: '6ni6ok3ym7mf1p33lnez',
-      author: 'mtsamis',
-      timestamp: 1468479767190
-    }
-  },
-  status: 'succeeded',
-  error: null
-}));
-
-// const initialState = {
-//   ids: [],
-//   entities: [],
-//   status: 'idle',
+// jest.mock(setAllQuestions, () => ({
+//   ids: ['8xf0y6ziyjabvozdd253nd', '6ni6ok3ym7mf1p33lnez'],
+//   entities: {
+//     '8xf0y6ziyjabvozdd253nd': {
+//       id: '8xf0y6ziyjabvozdd253nd',
+//       author: 'sarahedo',
+//       timestamp: 1467166872634
+//     },
+//     '6ni6ok3ym7mf1p33lnez': {
+//       id: '6ni6ok3ym7mf1p33lnez',
+//       author: 'mtsamis',
+//       timestamp: 1468479767190
+//     }
+//   },
+//   status: 'succeeded',
 //   error: null
-// };
+// }));
 
-const appReducer = combineReducers({
-  questions: questionsReducer
-});
+// // const initialState = {
+// //   ids: [],
+// //   entities: [],
+// //   status: 'idle',
+// //   error: null
+// // };
 
-const store = configureStore({
-  appReducer
-});
+// const appReducer = combineReducers({
+//   questions: questionsReducer
+// });
 
-function PageWrapper({ children }) {
-  return <Provider store={store}>{children}</Provider>;
-}
+// const store = configureStore({
+//   appReducer
+// });
 
-describe('Dashboard Page', () => {
-  it('should fetch app polls', async () => {
-    render(<Dashboard />, { wrapper: PageWrapper });
-    const questions = screen.queryAllByText('Poll created by');
-    expect(questions).not.toEqual(0);
-  });
-});
+// function PageWrapper({ children }) {
+//   return <Provider store={store}>{children}</Provider>;
+// }
+
+// describe('Dashboard Page', () => {
+//   it('should fetch app polls', async () => {
+//     render(<Dashboard />, { wrapper: PageWrapper });
+//     const questions = screen.queryAllByText('Poll created by');
+//     expect(questions).not.toEqual(0);
+//   });
+// });
 // test('dashboard receives authed user', () => {
 //     const { authedAppUser } = render(
 //       <MemoryRouter>
