@@ -48,7 +48,7 @@ function AddPoll() {
     <>
       <NavBar />
       <Container className="mt-5 mb-2" style={{ maxWidth: '750px' }}>
-        <h2>Add a new poll question!</h2>
+        <h2>Would You Rather...</h2>
 
         {posted && !loading ? (
           <>
