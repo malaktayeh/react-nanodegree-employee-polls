@@ -4,6 +4,8 @@ import Col from 'react-bootstrap/Col';
 import Poll from './Poll';
 
 function PollsGrid({ voteStatus, questions, authedUserId }) {
+  const sortedQuestionsArray = questions.sort((q1, q2) => q2.timestamp - q1.timestamp);
+
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
@@ -11,9 +13,9 @@ function PollsGrid({ voteStatus, questions, authedUserId }) {
         <div>You answered all polls. Come back some other time! 👍</div>
       ) : (
         <>
-          {Object.entries(questions).map((key) => (
-            <Col xs={12} sm={12} md={4} xl={3} key={key[1].id} className="mt-3">
-              <Poll question={key[1]} voteStatus={voteStatus} authedUserId={authedUserId} />
+          {sortedQuestionsArray.map((q) => (
+            <Col xs={12} sm={12} md={4} xl={3} key={q.id} className="mt-3">
+              <Poll question={q} voteStatus={voteStatus} authedUserId={authedUserId} />
             </Col>
           ))}
         </>
