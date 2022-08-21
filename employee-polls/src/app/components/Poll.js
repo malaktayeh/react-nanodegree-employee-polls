@@ -32,7 +32,10 @@ function Poll() {
 
   const optionOneVote = state.q.optionOne.votes;
   const optionTwoVote = state.q.optionTwo.votes;
-  const totalVotes = optionOneVote.length + optionTwoVote.length;
+  const totalVotes =
+    optionOneVote.length + optionTwoVote.length !== 0
+      ? optionOneVote.length + optionTwoVote.length
+      : null;
 
   const handleClick = (selection) => {
     if (selection === 'optionOne') {
@@ -131,22 +134,30 @@ function Poll() {
             )}
           </div>
         )}
-        <p className="mt-5">
+
+        {/* Statistics */}
+        <div className="mt-5">
           {selected === null ? (
             <p>Please note: you can only vote once and are not allowed to change your answer.</p>
           ) : (
             <>
               <p>Poll answered!</p>
               <p>
-                You voted for the following: <b>{state.q[selected].text}</b>
+                You voted for the following: <b>{state.q[selected].text}</b>.
               </p>
-              <p>
-                <b>{totalVotes}</b> colleagues selected the same option. Percentage of people who
-                voted like you:{' '}
-                <b>
-                  {Math.round(100 * (state.q[selected].votes.length / totalVotes) * 100) / 100}%.
-                </b>
-              </p>
+
+              {totalVotes !== null ? (
+                <p>
+                  <b>{totalVotes}</b> colleagues selected the same option. Percentage of people who
+                  voted like you:{' '}
+                  <b>
+                    {Math.round(100 * (state.q[selected].votes.length / totalVotes) * 100) / 100}%.
+                  </b>
+                </p>
+              ) : (
+                <p>You were the first to vote. Come back later for more statistics!</p>
+              )}
+
               <Button variant="light" className="mt-5">
                 <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
                   {' '}
@@ -155,7 +166,7 @@ function Poll() {
               </Button>
             </>
           )}
-        </p>
+        </div>
       </Container>
     </>
   );

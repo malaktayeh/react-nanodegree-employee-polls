@@ -45,7 +45,7 @@ function LeaderboardTable({ data }) {
 }
 
 LeaderboardTable.propTypes = {
-  data: PropTypes.object.isRequired
+  data: PropTypes.array.isRequired
 };
 
 export default LeaderboardTable;

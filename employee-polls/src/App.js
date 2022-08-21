@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Login from './app/views/Login';
 import AddPoll from './app/views/AddPoll';
-// import UserPollList from './app/components/UserPollList';
+import MyPolls from './app/views/MyPolls';
 import Poll from './app/components/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
@@ -33,8 +33,7 @@ function App() {
           exact
           element={
             <PrivateRoute>
-              <div>hehe</div>
-              {/* <UserPollList /> */}
+              <MyPolls />
             </PrivateRoute>
           }
         />

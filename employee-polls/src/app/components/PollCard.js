@@ -7,20 +7,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
 
-const cardStyle = {
-  minHeight: '150px',
-
-  '&:hover': {
-    backgroundClip: '#efefef'
-  }
-};
-
 function PollCard({ question, voteStatus, authedUserId }) {
   return (
-    <Card style={cardStyle} border={voteStatus === 'unanswered' ? 'primary' : 'secondary'}>
+    <Card
+      style={{ minHeight: '175px' }}
+      border={voteStatus === 'unanswered' ? 'primary' : 'secondary'}>
       <Card.Img variant="top" />
       <Card.Body className="bg-light">
-        <Container flex>
+        <Container>
           <Row>
             <Card.Title>
               {question.optionOne.text} <span style={{ textDecorationLine: 'underline' }}>or</span>{' '}
@@ -32,16 +26,10 @@ function PollCard({ question, voteStatus, authedUserId }) {
               <Link to={`/poll/${question.id}`} state={{ q: question, authedUserId, voteStatus }}>
                 {voteStatus === 'unanswered' ? (
                   <Button variant="primary" style={{ alignSelf: 'center' }}>
-                    <Card.Link style={{ textDecorationLine: 'none', color: 'white' }}>
-                      Vote!
-                    </Card.Link>
+                    Vote!
                   </Button>
                 ) : (
-                  <Button variant="secondary">
-                    <Card.Link style={{ textDecorationLine: 'none', color: 'white' }}>
-                      See your answer
-                    </Card.Link>
-                  </Button>
+                  <Button variant="secondary">See details</Button>
                 )}
               </Link>
             </Col>
