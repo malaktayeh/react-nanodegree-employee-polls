@@ -39,7 +39,7 @@ function Login() {
     // check if username exists
     if (appUser === undefined) {
       // eslint-disable-next-line no-console
-      console.log('username does not exist!');
+      // console.log('username does not exist!');
       setUserNameError(true);
       return;
     }
@@ -47,7 +47,7 @@ function Login() {
 
     if (appUser.password !== password) {
       // eslint-disable-next-line no-console
-      console.log('incorrect user password!');
+      // console.log('incorrect user password!');
       setPasswordError(true);
       return;
     }
@@ -97,7 +97,7 @@ function Login() {
                 borderBottom: '1px solid #e9ecef'
               }}>
               <Col>
-                <div>Employee Polls</div>
+                <div data-testid="appHeader">Employee Polls</div>
               </Col>
             </Row>
             <Col xs={12} sm={12} md={9} lg={8} xl={7} style={{ justifyContent: 'center' }}>
@@ -109,6 +109,7 @@ function Login() {
                       @
                     </InputGroup.Text>
                     <Form.Control
+                      data-testid="userNameInput"
                       type="text"
                       placeholder="Username"
                       aria-describedby="inputGroupPrepend"
@@ -117,7 +118,7 @@ function Login() {
                       required
                     />
                     <Form.Control.Feedback type="invalid">
-                      {userNameError ? 'An error occured.' : null}
+                      {userNameError ? 'Wrong or non-existing user name.' : null}
                     </Form.Control.Feedback>
                     {userNameError ? (
                       <Form.Control.Feedback>This username is not valid.</Form.Control.Feedback>
@@ -146,7 +147,9 @@ function Login() {
                   </InputGroup>
                 </Form.Group>
 
-                <Button type="submit">Submit</Button>
+                <Button type="submit" data-testid="submit-button">
+                  Submit
+                </Button>
               </Form>
             </Col>
           </>

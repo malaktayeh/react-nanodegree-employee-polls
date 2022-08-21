@@ -1,4 +1,5 @@
 import React from 'react';
+import { screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -60,4 +61,15 @@ describe('404 Page', () => {
       </div>
     `);
   });
+  // it('has a return header stating a 404 issue and return button', () => {
+  //   const page = renderer.create(
+  //     <MemoryRouter>
+  //       <Provider store={store}>
+  //         <Error404 />
+  //       </Provider>
+  //     </MemoryRouter>
+  //   );
+  //   expect(screen.queryAllByText(' 4 0 4 !').toEqual(1));
+  //   expect(screen.page.getByText(' Return ')).toBeInTheDocument();
+  // });
 });
