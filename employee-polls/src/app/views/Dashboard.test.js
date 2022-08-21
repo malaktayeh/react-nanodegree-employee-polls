@@ -1,67 +1,139 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
-import { render, screen } from '@testing-library/react';
-import { configureStore } from '@reduxjs/toolkit';
+import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
-import { combineReducers } from 'redux';
+import { MemoryRouter } from 'react-router-dom';
+import store from '../store';
 import Dashboard from './Dashboard';
-import questionsReducer, { setAllQuestions } from '../features/questionsSlice';
 
-// const dispatch = useDispatch();
-
-// jest.mock(setAllQuestions, () => ({
-//   ids: ['8xf0y6ziyjabvozdd253nd', '6ni6ok3ym7mf1p33lnez'],
-//   entities: {
-//     '8xf0y6ziyjabvozdd253nd': {
-//       id: '8xf0y6ziyjabvozdd253nd',
-//       author: 'sarahedo',
-//       timestamp: 1467166872634
-//     },
-//     '6ni6ok3ym7mf1p33lnez': {
-//       id: '6ni6ok3ym7mf1p33lnez',
-//       author: 'mtsamis',
-//       timestamp: 1468479767190
-//     }
-//   },
-//   status: 'succeeded',
-//   error: null
-// }));
-
-// // const initialState = {
-// //   ids: [],
-// //   entities: [],
-// //   status: 'idle',
-// //   error: null
-// // };
-
-// const appReducer = combineReducers({
-//   questions: questionsReducer
-// });
-
-// const store = configureStore({
-//   appReducer
-// });
-
-// function PageWrapper({ children }) {
-//   return <Provider store={store}>{children}</Provider>;
-// }
-
-// describe('Dashboard Page', () => {
-//   it('should fetch app polls', async () => {
-//     render(<Dashboard />, { wrapper: PageWrapper });
-//     const questions = screen.queryAllByText('Poll created by');
-//     expect(questions).not.toEqual(0);
-//   });
-// });
-// test('dashboard receives authed user', () => {
-//     const { authedAppUser } = render(
-//       <MemoryRouter>
-//         <Provider store={store}>
-//           <Dashboard />
-//         </Provider>
-//       </MemoryRouter>
-//     );
-//     expect(authedAppUser);
-//     screen.debug();
-//   });
-// });
+describe('Dashboard', () => {
+  it('will match Dashboard view snapshot', () => {
+    const view = renderer
+      .create(
+        <MemoryRouter>
+          <Provider store={store}>
+            <Dashboard />
+          </Provider>
+        </MemoryRouter>
+      )
+      .toJSON();
+    expect(view).toMatchInlineSnapshot(`
+      Array [
+        <nav
+          className="navbar navbar-expand-md navbar-light bg-light sticky-top fixed-top"
+        >
+          <div
+            className="container"
+          >
+            <a
+              className="active navbar-brand"
+              href="/"
+              onClick={[Function]}
+              style={Object {}}
+            >
+              Employee Polls
+            </a>
+            <button
+              aria-controls="basic-navbar-nav"
+              aria-label="Toggle navigation"
+              className="navbar-toggler collapsed"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="navbar-toggler-icon"
+              />
+            </button>
+            <div
+              aria-expanded={null}
+              className="navbar-collapse collapse"
+              id="basic-navbar-nav"
+            >
+              <div
+                className="me-auto navbar-nav"
+                onKeyDown={[Function]}
+              >
+                <a
+                  className="nav-link"
+                  data-rr-ui-event-key="/leaderboard"
+                  disabled={false}
+                  href="/leaderboard"
+                  onClick={[Function]}
+                  style={null}
+                >
+                  Leaderboard
+                </a>
+                <div
+                  className="nav-item dropdown"
+                >
+                  <a
+                    aria-expanded={false}
+                    className="dropdown-toggle nav-link"
+                    data-rr-ui-event-key={null}
+                    href="#"
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    Polls
+                  </a>
+                </div>
+              </div>
+              <img
+                alt="User Icon"
+                src="undefined"
+                style={
+                  Object {
+                    "height": "50px",
+                    "paddingRight": "25px",
+                  }
+                }
+              />
+              <div
+                className="justify-content-end nav-item dropdown"
+              >
+                <a
+                  aria-expanded={false}
+                  className="dropdown-toggle nav-link"
+                  href="#"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex={0}
+                />
+              </div>
+              <div
+                className="justify-content-end navbar-nav"
+                onKeyDown={[Function]}
+              />
+            </div>
+          </div>
+        </nav>,
+        <div
+          className="mt-5 container"
+        >
+          <h2
+            className="mb-3"
+          >
+            Unanwered polls
+          </h2>
+          <div
+            className="spinner-border"
+          />
+        </div>,
+        <div
+          className="mt-5 pb-5 container"
+        >
+          <h2
+            className="mb-3"
+          >
+            Answered polls
+          </h2>
+          <div
+            className="spinner-border"
+          />
+        </div>,
+      ]
+    `);
+  });
+});
