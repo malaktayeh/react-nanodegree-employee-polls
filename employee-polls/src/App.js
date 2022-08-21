@@ -3,6 +3,7 @@ import { connect, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './app/components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 import Login from './app/views/Login';
 import AddPoll from './app/views/AddPoll';
 import MyPolls from './app/views/MyPolls';
@@ -15,7 +16,7 @@ function App() {
   const { authedUser } = useSelector(authedUserSelector);
 
   return (
-    <div className="App">
+    <div id="App">
       <Routes>
         <Route path="/login" element={<Login user={authedUser} />} />
         <Route

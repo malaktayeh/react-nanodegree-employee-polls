@@ -68,64 +68,88 @@ function Login() {
   };
 
   return (
-    <Container fluid>
-      <Row className="justify-content-md-center">
+    <Container fluid style={{ height: '100%', minHeight: '100%' }}>
+      <Row style={{ height: '100%', minHeight: '100%' }}>
         {/* Sidebar */}
-        <Col sm={0} lg={2} className="bg-light">
-          <div className="d-none d-lg-block">
+        <Col
+          xs={0}
+          sm={0}
+          md={3}
+          lg={4}
+          xl={5}
+          className="bg-light d-none d-sm-block d-sm-none d-md-block">
+          <div className="text-center pt-5">
             <Sidebar />
           </div>
         </Col>
-
-        {/* Login Form */}
         {status === 'loading' ? (
           <Spinner animation="border" />
         ) : (
-          <Col sm={12} lg={10}>
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicUsername">
-                <Form.Label>Username</Form.Label>
-                <InputGroup hasValidation>
-                  <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                  <Form.Control
-                    type="text"
-                    placeholder="Username"
-                    aria-describedby="inputGroupPrepend"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    {userNameError ? 'An error occured.' : null}
-                  </Form.Control.Feedback>
-                  {userNameError ? (
-                    <Form.Control.Feedback>This username is not valid.</Form.Control.Feedback>
-                  ) : null}
-                </InputGroup>
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <InputGroup hasValidation>
-                  <Form.Control
-                    required
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      setPasswordError(false);
-                    }}
-                  />
-                  <Form.Control.Feedback type="invalid">An error occured.</Form.Control.Feedback>
-                  {passwordError ? (
-                    <Form.Control.Feedback>Wrong password. Please re-enter.</Form.Control.Feedback>
-                  ) : null}
-                </InputGroup>
-              </Form.Group>
+          <>
+            {/* Login Form */}
+            <Row
+              className="bg-light d-block d-md-none display-5 font-weight-bold"
+              style={{
+                margin: '0',
+                paddingTop: '10px',
+                maxHeight: '60px',
+                textAlign: 'center',
+                borderBottom: '1px solid #e9ecef'
+              }}>
+              <Col>
+                <div>Employee Polls</div>
+              </Col>
+            </Row>
+            <Col xs={12} sm={12} md={9} lg={8} xl={7} style={{ justifyContent: 'center' }}>
+              <Form noValidate validated={validated} onSubmit={handleSubmit} className="px-5 py-5">
+                <Form.Group className="mb-5" controlId="formBasicUsername">
+                  <Form.Label className="mt-5">Username</Form.Label>
+                  <InputGroup hasValidation>
+                    <InputGroup.Text id="inputGroupPrepend" className="text-secondary">
+                      @
+                    </InputGroup.Text>
+                    <Form.Control
+                      type="text"
+                      placeholder="Username"
+                      aria-describedby="inputGroupPrepend"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {userNameError ? 'An error occured.' : null}
+                    </Form.Control.Feedback>
+                    {userNameError ? (
+                      <Form.Control.Feedback>This username is not valid.</Form.Control.Feedback>
+                    ) : null}
+                  </InputGroup>
+                </Form.Group>
+                <Form.Group className="mb-5" controlId="formBasicPassword">
+                  <Form.Label>Password</Form.Label>
+                  <InputGroup>
+                    <Form.Control
+                      required
+                      type="password"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                        setPasswordError(false);
+                      }}
+                    />
+                    <Form.Control.Feedback type="invalid">An error occured.</Form.Control.Feedback>
+                    {passwordError ? (
+                      <Form.Control.Feedback type="invalid" className="text-secondary">
+                        Wrong password. Please re-enter.
+                      </Form.Control.Feedback>
+                    ) : null}
+                  </InputGroup>
+                </Form.Group>
 
-              <Button type="submit">Submit</Button>
-            </Form>
-          </Col>
+                <Button type="submit">Submit</Button>
+              </Form>
+            </Col>
+          </>
         )}
       </Row>
     </Container>
