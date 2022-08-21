@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Container from 'react-bootstrap/esm/Container';
@@ -32,7 +31,7 @@ function Dashboard() {
   );
 
   useEffect(() => {
-    dispatch(fetchQuestions());
+    if (status !== 'succeeded') dispatch(fetchQuestions());
   }, []);
 
   return (
@@ -40,40 +39,32 @@ function Dashboard() {
       <NavBar />
       <Container className="mt-5 mb-2">
         <h2 className="mb-3">Unanwered polls</h2>
-        {status === 'loading' ? (
-          <Spinner animation="border" />
-        ) : error ? (
-          <div>An error occured.</div>
-        ) : (
-          null(
-            <Row>
-              <PollsGrid
-                voteStatus="unanswered"
-                questions={unanswered.map((v) => v[1])}
-                authedUserId={authedUser.id}
-              />
-            </Row>
-          )
-        )}
+        {status === 'loading' ? <Spinner animation="border" /> : null}
+        {status === 'succeeded' ? (
+          <Row>
+            <PollsGrid
+              voteStatus="unanswered"
+              questions={unanswered.map((v) => v[1])}
+              authedUserId={authedUser.id}
+            />
+          </Row>
+        ) : null}
+        {error !== 'null' ? null : <div>An error occured.</div>}
       </Container>
 
       <Container className="mt-5 mb-2">
         <h2 className="mb-3">Answered polls</h2>
-        {status === 'loading' ? (
-          <Spinner animation="border" />
-        ) : error ? (
-          <div>An error occured.</div>
-        ) : (
-          null(
-            <Row>
-              <PollsGrid
-                voteStatus="answered"
-                questions={answered.map((v) => v[1])}
-                authedUserId={authedUser.id}
-              />
-            </Row>
-          )
-        )}
+        {status === 'loading' ? <Spinner animation="border" /> : null}
+        {status === 'succeeded' ? (
+          <Row>
+            <PollsGrid
+              voteStatus="answered"
+              questions={answered.map((v) => v[1])}
+              authedUserId={authedUser.id}
+            />
+          </Row>
+        ) : null}
+        {error !== 'null' ? null : <div>An error occured.</div>}
       </Container>
     </>
   );

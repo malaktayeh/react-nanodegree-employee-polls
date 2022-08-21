@@ -6,13 +6,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { authedUserSelector, removeAuthedUser } from '../features/authedUserSlice';
-// import avatar1 from '../assets/png/user-252494.png';
 
 function NavBar() {
   const dispatch = useDispatch();
   const { authedUser } = useSelector(authedUserSelector);
-  // eslint-disable-next-line no-console
-  console.log(authedUser.avatarURL);
 
   const signOut = () => {
     dispatch(removeAuthedUser());

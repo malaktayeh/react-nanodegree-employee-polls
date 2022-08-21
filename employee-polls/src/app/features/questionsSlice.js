@@ -16,8 +16,9 @@ export const fetchQuestions = createAsyncThunk('questions/fetchQuestions', async
   return response;
 });
 
-export const addQuestion = createAsyncThunk('questions/addQuestion', async () => {
-  const response = await _saveQuestion();
+export const addQuestion = createAsyncThunk('questions/addQuestion', async (payload) => {
+  console.log(payload);
+  const response = await _saveQuestion(payload);
   return response;
 });
 
@@ -31,7 +32,6 @@ const questionsSlice = createSlice({
   initialState,
   reducers: {
     setAllQuestions: questionsAdapter.setAll,
-    addNewQuestion: questionsAdapter.addOne,
     updateQuestion: questionsAdapter.updateOne
   },
   extraReducers: (builder) => {
@@ -48,7 +48,7 @@ const questionsSlice = createSlice({
     });
     builder.addCase(addQuestion.fulfilled, (state, { payload }) => {
       state.status = 'succeeded';
-      questionsAdapter.addOne(state, payload.id);
+      questionsAdapter.addOne(state, payload);
     });
     builder.addCase(addQuestion.pending, (state) => {
       state.status = 'loading';
@@ -80,14 +80,11 @@ export const {
   selectAll: selectAllQuestions,
   selectIds,
   selectTotal,
-  selectById,
+  selectById: idsAdapter,
   selectEntities: selectQuestionsEntities,
   addNewQuestion,
   updateQuestion
 } = questionsAdapter.getSelectors((state) => state.questions);
-
-// // SELECTORS
-// export const questionsStatus = questionsAdapter.getSelectors((state) => state.questions.status);
 
 // REDUCER
 export default questionsSlice.reducer;
