@@ -7,12 +7,12 @@ import Button from 'react-bootstrap/esm/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBar from './Navbar';
 import { vote } from '../features/questionsSlice';
-import { selectById } from '../features/usersSlice';
+import { selectUserById } from '../features/usersSlice';
 
 function Poll() {
   const dispatch = useDispatch();
   const { state } = useLocation();
-  const author = useSelector((s) => selectById(s, state.q.author));
+  const author = useSelector((s) => selectUserById(s, state.q.author));
   const date = new Date(state.q.timestamp);
 
   const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
@@ -57,10 +57,10 @@ function Poll() {
   return (
     <>
       <NavBar />
-      <Container className="mt-5 mb-2">
-        <h2 className="mb-3">Poll page</h2>
-      </Container>
-      <Container>
+      <Container className="mt-5 mb-2" style={{ maxWidth: '750px' }}>
+        <div className="mt-5 mb-2">
+          <h2 className="mb-3">Poll page</h2>
+        </div>
         <Row className="my-5">
           <Col>
             <h4>Would you rather...?</h4>

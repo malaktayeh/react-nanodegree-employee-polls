@@ -46,12 +46,12 @@ function AddPoll() {
   return (
     <>
       <NavBar />
-      <Container className="mt-5 mb-2" style={{ maxWidth: '750px' }}>
+      <Container className="mt-5" style={{ maxWidth: '750px' }}>
         {error === 'null' ? (
           <div>An error occured.</div>
         ) : (
           <>
-            <h2>Would You Rather...</h2>
+            <h2 className="mb-3">Would You Rather...</h2>
 
             {posted && status !== 'loading' ? (
               <>

@@ -37,7 +37,7 @@ function Dashboard() {
   return (
     <>
       <NavBar />
-      <Container className="mt-5 mb-2">
+      <Container className="mt-5">
         <h2 className="mb-3">Unanwered polls</h2>
         {status === 'loading' ? <Spinner animation="border" /> : null}
         {status === 'succeeded' ? (
@@ -52,7 +52,7 @@ function Dashboard() {
         {error !== 'null' ? null : <div>An error occured.</div>}
       </Container>
 
-      <Container className="mt-5 mb-2">
+      <Container className="mt-5 pb-5">
         <h2 className="mb-3">Answered polls</h2>
         {status === 'loading' ? <Spinner animation="border" /> : null}
         {status === 'succeeded' ? (

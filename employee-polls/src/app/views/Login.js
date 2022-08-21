@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { authedUserSelector, setAuthedUser } from '../features/authedUserSlice';
-import { fetchUsers, selectById } from '../features/usersSlice';
+import { fetchUsers, selectUserById } from '../features/usersSlice';
 import Sidebar from '../components/Sidebar';
 
 function Login() {
@@ -20,7 +20,7 @@ function Login() {
   const [passwordError, setPasswordError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const appUser = useSelector((state) => selectById(state, username));
+  const appUser = useSelector((state) => selectUserById(state, username));
   const [validated, setValidated] = useState(false);
 
   const { status } = useSelector(authedUserSelector);

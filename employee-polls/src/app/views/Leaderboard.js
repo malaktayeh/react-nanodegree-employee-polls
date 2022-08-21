@@ -3,26 +3,40 @@ import Container from 'react-bootstrap/esm/Container';
 import { useSelector } from 'react-redux';
 import NavBar from '../components/Navbar';
 import LeaderboardTable from '../components/Table';
-import { selectEntities } from '../features/usersSlice';
+import { selectAllQuestions } from '../features/questionsSlice';
+import { selectAllUsers } from '../features/usersSlice';
 
 function Leaderboard() {
-  const users = useSelector(selectEntities);
+  const allQuestions = useSelector(selectAllQuestions);
+  let answered = [];
 
-  const leaderboard = Object.entries(users).map((key) =>
+  for (let i = 0, l = allQuestions.length; i < l; i += 1) {
+    // through each iteration, create a new array
+    // the result is ONE array of the userIDs of app users who votes
+    const newArr = allQuestions[i].optionOne.votes.concat(allQuestions[i].optionTwo.votes);
+    answered = answered.concat(newArr);
+  }
+
+  // Fantastic usage of reducer function, see source:
+  // https://stackoverflow.com/a/57028486
+  // This will count the number of occurences of the userID int the answered array
+  const occurrences = answered.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+
+  const leaderboard = useSelector(selectAllUsers).map((user, index) =>
     Object({
-      user: key[1].id,
-      name: key[1].name,
-      pollsAnswered: Object.keys(key[1].answers).length,
-      pollsCreated: Object.keys(key[1].questions).length,
-      avatarURL: key[1].avatarURL
+      id: user.id,
+      name: user.name,
+      avatarURL: user.avatarURL,
+      pollsAnswered: [...occurrences.entries()][index][1],
+      pollsCreated: allQuestions.filter((q) => q.author === user.id).length
     })
   );
 
   return (
     <>
       <NavBar />
-      <Container>
-        <h2 className="my-5 mx-2">Poll leaderboard</h2>
+      <Container className="mt-5">
+        <h2 className="mb-5">Leaderboard</h2>
         <LeaderboardTable data={leaderboard} />
       </Container>
     </>
