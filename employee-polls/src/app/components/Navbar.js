@@ -28,7 +28,7 @@ function NavBar() {
               <Nav.Link>Leaderboard</Nav.Link>
             </LinkContainer>
             <NavDropdown title="Polls">
-              <LinkContainer to="/add-poll">
+              <LinkContainer to="/add">
                 <NavDropdown.Item>Add Poll</NavDropdown.Item>
               </LinkContainer>
               <LinkContainer to="/my-polls">

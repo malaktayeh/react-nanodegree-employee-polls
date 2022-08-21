@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login user={authedUser} />} />
         <Route
-          path="/add-poll"
+          path="/add"
           exact
           element={
             <PrivateRoute>

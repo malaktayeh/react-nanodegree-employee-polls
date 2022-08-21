@@ -21,7 +21,7 @@ function MyPolls() {
         <h2 className="my-5 mx-2">Polls you have posted!</h2>
         {authedUserQuestions.length === 0 ? (
           <p>
-            You have not submitted any polls yet. Click <Link to="/add-poll">here</Link> to add one!
+            You have not submitted any polls yet. Click <Link to="/add">here</Link> to add one!
           </p>
         ) : (
           <Table striped bordered hover>
