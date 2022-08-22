@@ -1,10 +1,37 @@
 # Employee Polls Project
 
-This is the starter code for the final assessment project for Udacity's React & Redux course.
+This is my second project for the [Udacity React Nanodegree](https://www.udacity.com/course/react-nanodegree--nd019).
+The front-end was built from scratch using using React by running `create-react-app`, but scaffolded with styles and components by [Bootstrap](https://react-bootstrap.github.io/). State is powered by [Redux Toolkit](https://redux-toolkit.js.org/), and the data is coming from [_DATA.js](./_DATA.js), which was provided by Udacity.  
+The `_DATA.js` file represents a fake database and methods that let you access the data. Routing is handled by [React Router](https://v5.reactrouter.com/web/guides/quick-start).
 
-The `_DATA.js` file represents a fake database and methods that let you access the data. The only thing you need to edit in the ` _DATA.js` file is the value of `avatarURL`. Each user should have an avatar, so you’ll need to add the path to each user’s avatar.
+The employee poll app supports four employees. It allows users to vote, see all polls, and create new ones.  Additionally, there is a leaderboard view that sorts users by app activity. The app is user-friendly and response.  
 
-Using the provided starter code, you'll build a React/Redux front end for the application. We recommend using the [Create React App](https://github.com/facebook/create-react-app) to bootstrap the project.
+![Project Screenshot](./employee-polls/src/app/assets/app_dashboard_screenshot.PNG);
+
+The starter code for the final assessment project for Udacity's React & Redux course can be found [here](https://github.com/udacity/nd0191-c1-myreads) and the passing rubric can be reviewed [here](https://review.udacity.com/#!/rubrics/4684/view) as well.
+
+## Running the app
+
+To get started developing right away:
+
+- download (or fork and download) this repo by running `git clone https://github.com/malaktayeh/react-nanodegree-myreads` in your terminal
+- install all project dependencies with `npm install`
+- start the development server with `npm start`
+- run jest unit tests by executing `npm test`
+
+You can also run in in the browser! Press `.` on this page or [here](https://github.dev/malaktayeh/react-nanodegree-myreads) to launch (:
+
+## Requirements
+
+- [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)
+- A code editor if you want to run it locally (I use [VS Code](https://code.visualstudio.com/))
+
+## Future to-dos
+
+- Deploy to [heroku](https://www.heroku.com/)
+- Make components more reusable (ran out of time!)
+- Write more unit tests
+- Improve UI
 
 ## Data
 
