@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/esm/Container';
+import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import NavBar from '../components/Navbar';
 import { authedUserSelector } from '../features/authedUserSlice';

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Container from 'react-bootstrap/esm/Container';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useLocation, Link } from 'react-router-dom';
-import Button from 'react-bootstrap/esm/Button';
+import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import NavBar from './Navbar';
 import { vote } from '../features/questionsSlice';

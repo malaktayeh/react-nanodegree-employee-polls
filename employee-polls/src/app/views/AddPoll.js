@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/esm/Container';
+import { Link, useNavigate } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from 'react-bootstrap/esm/Spinner';
+import Spinner from 'react-bootstrap/Spinner';
 import NavBar from '../components/Navbar';
 import { addQuestion } from '../features/questionsSlice';
 import { authedUserSelector } from '../features/authedUserSlice';
 
 function AddPoll() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const status = useSelector((state) => state.questions.status);
   const error = useSelector((state) => state.questions.error);
 
@@ -25,14 +26,14 @@ function AddPoll() {
     author: authedUser.id
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
       setValidated(true);
-      dispatch(addQuestion(poll));
+      await dispatch(addQuestion(poll));
       setPosted(true);
       setPoll({
         optionOneText: '',
@@ -40,6 +41,11 @@ function AddPoll() {
         author: authedUser.id
       });
       setValidated(false);
+
+      // redirect 5 seconds after posting
+      window.setTimeout(() => {
+        navigate('/');
+      }, 5000);
     }
   };
 
@@ -55,7 +61,9 @@ function AddPoll() {
 
             {posted && status !== 'loading' ? (
               <>
-                <p className="mt-4">Successfully submited your poll!</p>
+                <p className="mt-4">
+                  Successfully submited your poll! You are going to be redirected shortly.
+                </p>
                 <Button variant="light">
                   <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
                     {' '}

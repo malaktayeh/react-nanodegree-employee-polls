@@ -1,5 +1,5 @@
 import React from 'react';
-import Container from 'react-bootstrap/esm/Container';
+import Container from 'react-bootstrap/Container';
 import { useSelector } from 'react-redux';
 import NavBar from '../components/Navbar';
 import LeaderboardTable from '../components/Table';

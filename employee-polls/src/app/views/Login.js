@@ -8,9 +8,10 @@ import Container from 'react-bootstrap/Container';
 import Spinner from 'react-bootstrap/Spinner';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { authedUserSelector, setAuthedUser } from '../features/authedUserSlice';
-import { fetchUsers, selectUserById } from '../features/usersSlice';
+import { fetchUsers, selectUserById, selectUserEntities } from '../features/usersSlice';
 import Sidebar from '../components/Sidebar';
 
 function Login() {
@@ -21,6 +22,7 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const appUser = useSelector((state) => selectUserById(state, username));
+  const users = useSelector(selectUserEntities);
   const [validated, setValidated] = useState(false);
 
   const { status } = useSelector(authedUserSelector);
@@ -38,22 +40,25 @@ function Login() {
   const validateUser = () => {
     // check if username exists
     if (appUser === undefined) {
-      // eslint-disable-next-line no-console
-      console.log('username does not exist!');
       setUserNameError(true);
       return;
     }
     setUserNameError(false);
 
     if (appUser.password !== password) {
-      // eslint-disable-next-line no-console
-      console.log('incorrect user password!');
       setPasswordError(true);
       return;
     }
     setPasswordError(false);
 
     dispatch(setAuthedUser(appUser));
+    navigate('/');
+  };
+
+  const handleLazySignIn = (name) => {
+    const user = users[name];
+    setValidated(true);
+    dispatch(setAuthedUser(user));
     navigate('/');
   };
 
@@ -97,7 +102,7 @@ function Login() {
                 borderBottom: '1px solid #e9ecef'
               }}>
               <Col>
-                <div>Employee Polls</div>
+                <div data-testid="appHeader">Employee Polls</div>
               </Col>
             </Row>
             <Col xs={12} sm={12} md={9} lg={8} xl={7} style={{ justifyContent: 'center' }}>
@@ -109,6 +114,7 @@ function Login() {
                       @
                     </InputGroup.Text>
                     <Form.Control
+                      data-testid="userNameInput"
                       type="text"
                       placeholder="Username"
                       aria-describedby="inputGroupPrepend"
@@ -117,7 +123,7 @@ function Login() {
                       required
                     />
                     <Form.Control.Feedback type="invalid">
-                      {userNameError ? 'An error occured.' : null}
+                      {userNameError ? 'Wrong or non-existing user name.' : null}
                     </Form.Control.Feedback>
                     {userNameError ? (
                       <Form.Control.Feedback>This username is not valid.</Form.Control.Feedback>
@@ -145,8 +151,46 @@ function Login() {
                     ) : null}
                   </InputGroup>
                 </Form.Group>
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Dropdown style={{ width: '20%', minWidth: '100px', alignSelf: 'flex-end' }}>
+                    <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                      Sign in as...
+                    </Dropdown.Toggle>
 
-                <Button type="submit">Submit</Button>
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        onClick={() => {
+                          handleLazySignIn('sarahedo');
+                        }}>
+                        Sarah Edo
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => {
+                          handleLazySignIn('tylermcginnis');
+                        }}>
+                        Tyler McGinnis
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => {
+                          handleLazySignIn('mtsamis');
+                        }}>
+                        Mike Tsamis
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        onClick={() => {
+                          handleLazySignIn('zoshikanlu');
+                        }}>
+                        Zenobia Oshikanlu
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Button
+                    style={{ width: '20%', minWidth: '150px', alignSelf: 'flex-start' }}
+                    type="submit"
+                    data-testid="submit-button">
+                    Submit
+                  </Button>
+                </div>
               </Form>
             </Col>
           </>
