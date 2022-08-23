@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
@@ -12,6 +12,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { authedUserSelector, setAuthedUser } from '../features/authedUserSlice';
 import { fetchUsers, selectUserById, selectUserEntities } from '../features/usersSlice';
+import { fetchQuestions } from '../features/questionsSlice';
 import Sidebar from '../components/Sidebar';
 
 function Login() {
@@ -21,6 +22,7 @@ function Login() {
   const [passwordError, setPasswordError] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const appUser = useSelector((state) => selectUserById(state, username));
   const users = useSelector(selectUserEntities);
   const [validated, setValidated] = useState(false);
@@ -37,6 +39,14 @@ function Login() {
     dispatch(fetchUsers());
   }, []);
 
+  // check whether to route to dashboard because a user tried to access a page
+  // without signing in first. redirect to dashboard if false.
+  const routeToCorrectPath = (event) => {
+    event.preventDefault();
+    const correctRedirectURL = location.state?.from || '/';
+    navigate(correctRedirectURL, { replace: true });
+  };
+
   const validateUser = () => {
     // check if username exists
     if (appUser === undefined) {
@@ -52,14 +62,15 @@ function Login() {
     setPasswordError(false);
 
     dispatch(setAuthedUser(appUser));
-    navigate('/');
+    routeToCorrectPath();
   };
 
-  const handleLazySignIn = (name) => {
+  const handleLazySignIn = (name, event) => {
     const user = users[name];
     setValidated(true);
     dispatch(setAuthedUser(user));
-    navigate('/');
+    dispatch(fetchQuestions());
+    routeToCorrectPath(event);
   };
 
   const handleSubmit = (event) => {
@@ -69,7 +80,7 @@ function Login() {
       event.stopPropagation();
     }
     setValidated(true);
-    validateUser();
+    validateUser(event);
   };
 
   return (
@@ -159,26 +170,26 @@ function Login() {
 
                     <Dropdown.Menu>
                       <Dropdown.Item
-                        onClick={() => {
-                          handleLazySignIn('sarahedo');
+                        onClick={(e) => {
+                          handleLazySignIn('sarahedo', e);
                         }}>
                         Sarah Edo
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => {
-                          handleLazySignIn('tylermcginnis');
+                        onClick={(e) => {
+                          handleLazySignIn('tylermcginnis', e);
                         }}>
                         Tyler McGinnis
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => {
-                          handleLazySignIn('mtsamis');
+                        onClick={(e) => {
+                          handleLazySignIn('mtsamis', e);
                         }}>
                         Mike Tsamis
                       </Dropdown.Item>
                       <Dropdown.Item
-                        onClick={() => {
-                          handleLazySignIn('zoshikanlu');
+                        onClick={(e) => {
+                          handleLazySignIn('zoshikanlu', e);
                         }}>
                         Zenobia Oshikanlu
                       </Dropdown.Item>

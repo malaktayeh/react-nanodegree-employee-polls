@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './app/components/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,15 +11,12 @@ import Poll from './app/components/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
 import Error404 from './app/views/Error404';
-import { authedUserSelector } from './app/features/authedUserSlice';
 
 function App() {
-  const { authedUser } = useSelector(authedUserSelector);
-
   return (
     <div id="App">
       <Routes>
-        <Route path="/login" element={<Login user={authedUser} />} />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/add"
           exact
@@ -63,7 +60,15 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="*" element={<Error404 />} />
+        <Route
+          path="*"
+          element={
+            <PrivateRoute>
+              <Error404 />
+            </PrivateRoute>
+          }
+        />
+        {/* <Route path="*" element={<Login />} /> */}
       </Routes>
     </div>
   );
