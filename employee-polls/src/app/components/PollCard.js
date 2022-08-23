@@ -23,7 +23,9 @@ function PollCard({ question, voteStatus, authedUserId }) {
           </Row>
           <Row className="my-4" style={{ textAlign: 'center' }}>
             <Col>
-              <Link to={`/poll/${question.id}`} state={{ q: question, authedUserId, voteStatus }}>
+              <Link
+                to={`/questions/${question.id}`}
+                state={{ q: question, authedUserId, voteStatus }}>
                 {voteStatus === 'unanswered' ? (
                   <Button variant="primary" style={{ alignSelf: 'center' }}>
                     Vote!

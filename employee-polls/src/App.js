@@ -36,7 +36,7 @@ function App() {
           }
         />
         <Route
-          path="/poll/:id"
+          path="/questions/:id"
           element={
             <PrivateRoute>
               <Poll />
@@ -68,7 +68,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        {/* <Route path="*" element={<Login />} /> */}
       </Routes>
     </div>
   );
