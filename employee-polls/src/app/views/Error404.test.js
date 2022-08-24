@@ -25,39 +25,132 @@ describe('404 Page', () => {
       )
       .toJSON();
     expect(view).toMatchInlineSnapshot(`
-      <div
-        className="mt-5 mb-2 container"
-      >
+      Array [
+        <nav
+          className="navbar navbar-expand-md navbar-light bg-light sticky-top fixed-top"
+        >
+          <div
+            className="container"
+          >
+            <a
+              className="active navbar-brand"
+              href="/"
+              onClick={[Function]}
+              style={Object {}}
+            >
+              Employee Polls
+            </a>
+            <button
+              aria-controls="basic-navbar-nav"
+              aria-label="Toggle navigation"
+              className="navbar-toggler collapsed"
+              onClick={[Function]}
+              type="button"
+            >
+              <span
+                className="navbar-toggler-icon"
+              />
+            </button>
+            <div
+              aria-expanded={null}
+              className="navbar-collapse collapse"
+              id="basic-navbar-nav"
+            >
+              <div
+                className="me-auto navbar-nav"
+                onKeyDown={[Function]}
+              >
+                <a
+                  className="nav-link"
+                  data-rr-ui-event-key="/leaderboard"
+                  disabled={false}
+                  href="/leaderboard"
+                  onClick={[Function]}
+                  style={null}
+                >
+                  Leaderboard
+                </a>
+                <div
+                  className="nav-item dropdown"
+                >
+                  <a
+                    aria-expanded={false}
+                    className="dropdown-toggle nav-link"
+                    data-rr-ui-event-key={null}
+                    href="#"
+                    onClick={[Function]}
+                    onKeyDown={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    Polls
+                  </a>
+                </div>
+              </div>
+              <img
+                alt="User Icon"
+                src="undefined"
+                style={
+                  Object {
+                    "height": "50px",
+                    "paddingRight": "25px",
+                  }
+                }
+              />
+              <div
+                className="justify-content-end nav-item dropdown"
+              >
+                <a
+                  aria-expanded={false}
+                  className="dropdown-toggle nav-link"
+                  href="#"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex={0}
+                />
+              </div>
+              <div
+                className="justify-content-end navbar-nav"
+                onKeyDown={[Function]}
+              />
+            </div>
+          </div>
+        </nav>,
         <div
-          className="mt-5"
+          className="mt-5 mb-2 container"
         >
-          <h2
-            className="mt-3"
+          <div
+            className="mt-5"
           >
-             4 0 4 !
-          </h2>
-        </div>
-        <button
-          className="mt-5 btn btn-light"
-          disabled={false}
-          type="button"
-        >
-          <a
-            href="/"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "black",
-                "textDecoration": "none",
+            <h2
+              className="mt-3"
+            >
+               4 0 4 !
+            </h2>
+          </div>
+          <button
+            className="mt-5 btn btn-light"
+            disabled={false}
+            type="button"
+          >
+            <a
+              href="/"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "black",
+                  "textDecoration": "none",
+                }
               }
-            }
-          >
-             
-            ⬅️ Return
-             
-          </a>
-        </button>
-      </div>
+            >
+               
+              ⬅️ Return
+               
+            </a>
+          </button>
+        </div>,
+      ]
     `);
   });
 });

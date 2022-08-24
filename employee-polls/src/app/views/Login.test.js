@@ -85,7 +85,7 @@ test('loads and displays greeting', async () => {
   await waitFor(() => screen.getByTestId('appHeader'));
 
   expect(screen.getByText('Welcome!')).toHaveTextContent('Welcome');
-  expect(screen.getByRole('button')).not.toBeDisabled();
+  expect(screen.getByTestId('submit-button')).not.toBeDisabled();
 });
 
 test('handles server error', async () => {
@@ -108,5 +108,5 @@ test('handles server error', async () => {
   await waitFor(() => screen.getByText(/Wrong/));
 
   expect(screen.getByText(/ error /)).toBeInTheDocument();
-  expect(screen.getByRole('button')).not.toBeDisabled();
+  expect(screen.getByTestId('submit-button')).not.toBeDisabled();
 });
