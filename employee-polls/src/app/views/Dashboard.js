@@ -1,7 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Spinner from 'react-bootstrap/Spinner';
 import { fetchQuestions, selectAllQuestions } from '../features/questionsSlice';
@@ -38,6 +40,10 @@ function Dashboard() {
     <>
       <NavBar />
       <Container className="mt-5">
+        {/* TODO: REMOVE */}
+        <Button>
+          <Link to="/questions/am8ehyc8byjqgar0jgpub9"> wrong link</Link>{' '}
+        </Button>
         <h2 className="mb-3">Unanwered polls</h2>
         {status === 'loading' ? <Spinner animation="border" /> : null}
         {status === 'succeeded' ? (
