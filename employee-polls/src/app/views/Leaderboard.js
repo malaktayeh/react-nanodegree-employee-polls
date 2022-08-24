@@ -20,17 +20,18 @@ function Leaderboard() {
   // Fantastic usage of reducer function, see source:
   // https://stackoverflow.com/a/57028486
   // This will count the number of occurences of the userID int the answered array
+  // and save it in a Map
   const occurrences =
     allQuestions.length === 0
       ? 0
       : answered.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
 
-  const leaderboard = useSelector(selectAllUsers).map((user, index) => {
+  const leaderboard = useSelector(selectAllUsers).map((user) => {
     return Object({
       id: user.id,
       name: user.name,
       avatarURL: user.avatarURL,
-      pollsAnswered: allQuestions.length === 0 ? 0 : [...occurrences.entries()][index][1],
+      pollsAnswered: allQuestions.length === 0 ? 0 : occurrences.get(user.id),
       pollsCreated: allQuestions.filter((q) => q.author === user.id).length
     });
   });
