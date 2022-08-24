@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
@@ -17,7 +17,6 @@ function AddPoll() {
   const error = useSelector((state) => state.questions.error);
 
   const [validated, setValidated] = useState(false);
-  const [posted, setPosted] = useState(false);
   const { authedUser } = useSelector(authedUserSelector);
 
   const [poll, setPoll] = useState({
@@ -34,18 +33,13 @@ function AddPoll() {
     } else {
       setValidated(true);
       await dispatch(addQuestion(poll));
-      setPosted(true);
       setPoll({
         optionOneText: '',
         optionTwoText: '',
         author: authedUser.id
       });
       setValidated(false);
-
-      // redirect 5 seconds after posting
-      window.setTimeout(() => {
-        navigate('/');
-      }, 5000);
+      navigate('/');
     }
   };
 
@@ -59,59 +53,45 @@ function AddPoll() {
           <>
             <h2 className="mb-3">Would You Rather...</h2>
 
-            {posted && status !== 'loading' ? (
-              <>
-                <p className="mt-4">
-                  Successfully submited your poll! You are going to be redirected shortly.
-                </p>
-                <Button variant="light">
-                  <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-                    {' '}
-                    ⬅️ Return to dashboard{' '}
-                  </Link>
-                </Button>
-              </>
-            ) : (
-              <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Group controlId="formAnswerA" className="mt-4">
-                  <Form.Label>Option A</Form.Label>
-                  <InputGroup hasValidation>
-                    <Form.Control
-                      value={poll.optionOneText}
-                      required
-                      as="textarea"
-                      rows={3}
-                      placeholder="Option A"
-                      onChange={(e) =>
-                        setPoll((prev) => ({ ...prev, optionOneText: e.target.value }))
-                      }
-                    />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  </InputGroup>
-                </Form.Group>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
+              <Form.Group controlId="formAnswerA" className="mt-4">
+                <Form.Label>Option A</Form.Label>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    value={poll.optionOneText}
+                    required
+                    as="textarea"
+                    rows={3}
+                    placeholder="Option A"
+                    onChange={(e) =>
+                      setPoll((prev) => ({ ...prev, optionOneText: e.target.value }))
+                    }
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
 
-                <Form.Group controlId="formAnswerB" className="mt-4">
-                  <Form.Label>Option B</Form.Label>
-                  <InputGroup hasValidation>
-                    <Form.Control
-                      value={poll.optionTwoText}
-                      required
-                      as="textarea"
-                      rows={3}
-                      placeholder="Option B"
-                      onChange={(e) =>
-                        setPoll((prev) => ({ ...prev, optionTwoText: e.target.value }))
-                      }
-                    />
-                    <Form.Control.Feedback>Perfect!</Form.Control.Feedback>
-                  </InputGroup>
-                </Form.Group>
+              <Form.Group controlId="formAnswerB" className="mt-4">
+                <Form.Label>Option B</Form.Label>
+                <InputGroup hasValidation>
+                  <Form.Control
+                    value={poll.optionTwoText}
+                    required
+                    as="textarea"
+                    rows={3}
+                    placeholder="Option B"
+                    onChange={(e) =>
+                      setPoll((prev) => ({ ...prev, optionTwoText: e.target.value }))
+                    }
+                  />
+                  <Form.Control.Feedback>Perfect!</Form.Control.Feedback>
+                </InputGroup>
+              </Form.Group>
 
-                <Button type="submit" className="mt-5">
-                  {status === 'loading' ? <Spinner animation="border" /> : 'Submit'}
-                </Button>
-              </Form>
-            )}
+              <Button type="submit" className="mt-5">
+                {status === 'loading' ? <Spinner animation="border" /> : 'Submit'}
+              </Button>
+            </Form>
           </>
         )}
       </Container>
