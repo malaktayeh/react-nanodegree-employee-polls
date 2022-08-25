@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 function AnsweredPoll({ votedForOptionOne, question, pollData }) {
   return (
     <div className="d-grid gap-2">
-      {votedForOptionOne !== undefined ? (
+      {votedForOptionOne ? (
         <>
           <Button disabled className="btn-d-sm-block">
             {question.optionOne ? question.optionOne.text : 'ERROR'}
