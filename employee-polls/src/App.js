@@ -7,7 +7,7 @@ import './App.css';
 import Login from './app/views/Login';
 import AddPoll from './app/views/AddPoll';
 import MyPolls from './app/views/MyPolls';
-import PollWrapper from './app/components/PollWrapper';
+import Poll from './app/components/Poll/Poll';
 import Leaderboard from './app/views/Leaderboard';
 import Dashboard from './app/views/Dashboard';
 import Error404 from './app/views/Error404';
@@ -39,7 +39,7 @@ function App() {
           path="/questions/:id"
           element={
             <PrivateRoute>
-              <PollWrapper />
+              <Poll />
             </PrivateRoute>
           }
         />
