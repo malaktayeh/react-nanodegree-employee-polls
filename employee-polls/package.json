@@ -1,7 +1,7 @@
 {
   "name": "employee-polls",
   "version": "0.1.0",
-  "homepage": "https://malaktayeh.github.io/react-nanodegree-employee-polls",
+  "homepage": "https://malaktayeh.github.io/react-nanodegree-employee-polls/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.3",
