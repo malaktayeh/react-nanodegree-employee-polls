@@ -11,7 +11,7 @@ function LeaderboardTable({ data }) {
   );
 
   return (
-    <Table striped bordered hover>
+    <Table responsive="md" size="sm" striped bordered>
       <thead>
         <tr>
           <th style={{ textAlign: 'center', verticalAlign: 'middle', minWidth: '50px' }}>#</th>
@@ -27,7 +27,11 @@ function LeaderboardTable({ data }) {
           <tr key={user.id}>
             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>{index + 1}</td>
             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>
-              <img src={user.avatarURL} style={{ maxWidth: '100px' }} alt={`${user.id}'s avatar`} />
+              <img
+                src={user.avatarURL}
+                style={{ minWidth: '40px', maxWidth: '50px' }}
+                alt={`${user.id}'s avatar`}
+              />
             </td>
             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>@{user.id}</td>
             <td style={{ textAlign: 'center', verticalAlign: 'middle' }}>{user.name}</td>
