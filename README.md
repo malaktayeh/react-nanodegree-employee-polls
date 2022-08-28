@@ -4,7 +4,9 @@ This is my second project for the [Udacity React Nanodegree](https://www.udacity
 The front-end was built from scratch using using React by running `create-react-app`, but scaffolded with styles and components by [Bootstrap](https://react-bootstrap.github.io/). State is powered by [Redux Toolkit](https://redux-toolkit.js.org/), and the data is coming from [_DATA.js](./_DATA.js), which was provided by Udacity.  
 The `_DATA.js` file represents a fake database and methods that let you access the data. Routing is handled by [React Router](https://v5.reactrouter.com/web/guides/quick-start).
 
-The employee poll app supports four employees. It allows users to vote, see all polls, and create new ones.  Additionally, there is a leaderboard view that sorts users by app activity. The app is user-friendly and response.  
+The employee poll app supports four employees. It allows users to vote, see all polls, and create new ones.  Additionally, there is a leaderboard view that sorts users by app activity. The app is user-friendly and response.
+
+The app is deployed to GitHub Pages.  You can access it [here](https://malaktayeh.github.io/react-nanodegree-employee-polls).
 
 ![Project Screenshot](./employee-polls/src/app/assets/app_dashboard_screenshot.PNG);
 
@@ -28,7 +30,7 @@ You can also run in in the browser! Press `.` on this page or [here](https://git
 
 ## Future to-dos
 
-- Deploy to [heroku](https://www.heroku.com/)
+- ~~Deploy to [heroku](https://www.heroku.com/)~~ deployed to GitHub Pages, see [here](https://malaktayeh.github.io/react-nanodegree-employee-polls).
 - Make components more reusable (ran out of time!)
 - Write more unit tests
 - Improve UI
