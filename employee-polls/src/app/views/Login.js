@@ -163,7 +163,7 @@ function Login() {
                   </InputGroup>
                 </Form.Group>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Dropdown style={{ width: '20%', minWidth: '100px', alignSelf: 'flex-end' }}>
+                  <Dropdown style={{ alignSelf: 'flex-end' }}>
                     <Dropdown.Toggle variant="primary" id="dropdown-basic">
                       Sign in as...
                     </Dropdown.Toggle>
@@ -196,7 +196,7 @@ function Login() {
                     </Dropdown.Menu>
                   </Dropdown>
                   <Button
-                    style={{ width: '20%', minWidth: '150px', alignSelf: 'flex-start' }}
+                    style={{ alignSelf: 'flex-start' }}
                     type="submit"
                     data-testid="submit-button">
                     Submit
